@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LogOut, LogIn } from "lucide-react";
@@ -40,9 +41,11 @@ export default function AuthComponent() {
           <div className="flex flex-col items-center justify-center py-2">
             <div className="h-16 w-16 mb-4 rounded-full bg-muted flex items-center justify-center overflow-hidden">
               {session.user?.image ? (
-                <img 
+                <Image 
                   src={session.user.image} 
                   alt={session.user.name || 'Avatar'} 
+                  width={64}
+                  height={64}
                   className="w-full h-full object-cover"
                 />
               ) : (
