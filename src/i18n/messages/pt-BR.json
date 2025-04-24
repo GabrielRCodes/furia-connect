@@ -44,5 +44,32 @@
     "home": "Início",
     "about": "Sobre",
     "contact": "Contato"
+  },
+  "Login": {
+    "title": "Entrar no FURIA Connect",
+    "description": "Escolha um método de login para acessar a plataforma",
+    "google": "Continuar com Google",
+    "or": "ou",
+    "backToHome": "Voltar para a página inicial",
+    "footer": "FURIA Connect - Conectando a comunidade FURIA",
+    "errors": {
+      "default": "Erro ao fazer login. Tente novamente.",
+      "OAuthSignin": "Erro durante o processo de autenticação.",
+      "OAuthCallback": "Erro durante a resposta de autenticação.",
+      "OAuthCreateAccount": "Erro ao criar uma conta com o provedor.",
+      "EmailCreateAccount": "Erro ao criar uma conta com e-mail.",
+      "Callback": "Erro durante o processo de callback.",
+      "OAuthAccountNotLinked": "A conta já está vinculada a outro login.",
+      "EmailSignin": "Erro ao enviar o e-mail de login.",
+      "CredentialsSignin": "Falha na autenticação. Verifique seus dados."
+    }
+  },
+  "Auth": {
+    "title": "Autenticação",
+    "description": "Teste de autenticação com Next Auth",
+    "loading": "Carregando sessão...",
+    "notLoggedIn": "Você não está logado",
+    "signIn": "Entrar com Google",
+    "signOut": "Sair"
   }
 } 
