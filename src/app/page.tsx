@@ -3,6 +3,7 @@ import ServerComponent from '../components/TestComponents/ServerComponent';
 import ClientComponent from '../components/TestComponents/ClientComponent';
 import ThemeComponent from '../components/TestComponents/ThemeComponent';
 import ToastTestComponent from '../components/TestComponents/ToastTestComponent';
+import AuthComponent from '../components/TestComponents/AuthComponent';
 
 // Desabilitar cache para atualizações de idioma
 export const dynamic = 'force-dynamic';
@@ -19,8 +20,9 @@ export default function Home() {
           <p className="text-muted-foreground">{t('description')}</p>
         </div>
         
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <ToastTestComponent />
+          <AuthComponent />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -28,7 +30,7 @@ export default function Home() {
           <ClientComponent />
           <ThemeComponent />
         </div>
-      </div>
+    </div>
     </main>
   );
 }
