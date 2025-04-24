@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { locales } from './config';
+import { locales, type Locale } from './config';
 
 // Define middleware para next-intl que vai processar todos os requests
 export default async function middleware(request: NextRequest) {
@@ -8,8 +8,12 @@ export default async function middleware(request: NextRequest) {
   const localeCookie = request.cookies.get('NEXT_LOCALE');
   // console.log(`Middleware - Cookie NEXT_LOCALE: ${localeCookie?.value || 'não encontrado'}`);
   
+  // Validar se o valor do cookie é um locale válido
+  const isValidLocale = (value: string | undefined): value is Locale => 
+    !!value && locales.includes(value as Locale);
+  
   // Usar locale do cookie ou pt-BR como padrão
-  const locale = localeCookie && locales.includes(localeCookie.value as any) 
+  const locale = localeCookie && isValidLocale(localeCookie.value)
     ? localeCookie.value 
     : 'pt-BR';
 

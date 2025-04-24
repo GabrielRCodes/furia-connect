@@ -17,7 +17,7 @@ export default function NavBar() {
   const t = useTranslations('NavBar');
   const themeT = useTranslations('Index.theme');
   const { locale, setLocale } = useLocale();
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
 
   const toggleLocale = () => {
     const newLocale = locale === 'pt-BR' ? 'en' : 'pt-BR';
