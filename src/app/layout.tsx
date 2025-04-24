@@ -4,6 +4,7 @@ import { getMessages } from 'next-intl/server';
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from '@/components/Providers';
+import { AuthProvider } from '@/components/AuthProvider';
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -47,16 +48,18 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning className="dark">
       <body className={`${inter.variable} antialiased font-sans`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers>
-            <div className="relative flex min-h-screen flex-col">
-              <div className="flex-1">
-                {children}
+        <AuthProvider>
+          <NextIntlClientProvider locale={locale} messages={messages}>
+            <Providers>
+              <div className="relative flex min-h-screen flex-col">
+                <div className="flex-1">
+        {children}
+                </div>
               </div>
-            </div>
-            <Toaster />
-          </Providers>
-        </NextIntlClientProvider>
+              <Toaster />
+            </Providers>
+          </NextIntlClientProvider>
+        </AuthProvider>
       </body>
     </html>
   );
