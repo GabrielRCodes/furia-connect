@@ -69,7 +69,7 @@
     "description": "Authentication test with Next Auth",
     "loading": "Loading session...",
     "notLoggedIn": "You are not logged in",
-    "signIn": "Sign in with Google",
+    "signIn": "Sign in",
     "signOut": "Sign out"
   }
 } 
