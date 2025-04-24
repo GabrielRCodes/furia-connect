@@ -1,0 +1,48 @@
+{
+  "Index": {
+    "title": "Welcome to FURIA Connect",
+    "description": "A modern platform built with Next.js and shadcn/ui",
+    "server": {
+      "title": "Server Component",
+      "description": "This is a server-rendered component."
+    },
+    "client": {
+      "title": "Client Component",
+      "description": "This is a client-rendered component that can change the application language.",
+      "button": "Toggle Language"
+    },
+    "theme": {
+      "title": "Theme",
+      "description": "Switch between light, dark and system themes.",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "toast": {
+      "title": "Toast Examples",
+      "description": "Click the buttons below to see different types of toast notifications.",
+      "successButton": "Success",
+      "errorButton": "Error",
+      "warningButton": "Warning",
+      "infoButton": "Info",
+      "customButton": "Custom",
+      "successMessage": "Operation successful!",
+      "successDescription": "The operation was completed successfully.",
+      "errorMessage": "An error occurred!",
+      "errorDescription": "Could not complete the operation.",
+      "warningMessage": "Important warning!",
+      "warningDescription": "Please pay attention to this information.",
+      "infoMessage": "Information",
+      "infoDescription": "Here's some useful information for you.",
+      "customMessage": "Custom toast",
+      "customDescription": "You can customize this toast however you want.",
+      "actionLabel": "Undo",
+      "footer": "Use toasts to show important notifications to users."
+    }
+  },
+  "NavBar": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  }
+} 

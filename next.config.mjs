@@ -1,0 +1,21 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+// Configuração sem uso de rotas para locales
+const withNextIntl = createNextIntlPlugin({
+  // Defina explicitamente
+  locales: ['en', 'pt-BR'],
+  defaultLocale: 'pt-BR',
+  localePrefix: 'never', // Importante: nunca usar prefixo de locale na URL
+  localeDetection: false, // Desabilitar detecção automática de locale
+  requestConfig: './src/i18n/request.ts'
+});
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    // Outras configurações experimentais, se houver
+  },
+  serverExternalPackages: [] // Movido da seção experimental
+};
+
+export default withNextIntl(nextConfig); 
