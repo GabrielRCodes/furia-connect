@@ -15,7 +15,13 @@ const nextConfig = {
   experimental: {
     // Outras configurações experimentais, se houver
   },
-  serverExternalPackages: [] // Movido da seção experimental
+  serverExternalPackages: [], // Movido da seção experimental
+  images: {
+    domains: [
+      'lh3.googleusercontent.com', // Google OAuth avatars
+    ],
+    unoptimized: true, // Desabilita a otimização automática de imagens pelo Next.js
+  }
 };
 
 export default withNextIntl(nextConfig); 
