@@ -5,14 +5,13 @@ import { Button } from '@/components/ui/button';
 import { FiArrowLeft, FiLogIn } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
 import { signIn } from 'next-auth/react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 
 export default function LoginPage() {
   const t = useTranslations('Login');
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,8 +24,8 @@ export default function LoginPage() {
       let errorMessage = t('errors.default');
       try {
         const key = `errors.${errorFromParams}`;
-        errorMessage = t(key as any);
-      } catch (e) {
+        errorMessage = t(key as keyof typeof t);
+      } catch {
         // Se a chave não existir, usar a mensagem padrão
       }
         
@@ -40,7 +39,7 @@ export default function LoginPage() {
     try {
       setIsLoading(true);
       await signIn('google', { callbackUrl: '/' });
-    } catch (error) {
+    } catch {
       toast.error(t('errors.default'));
       setIsLoading(false);
     }
