@@ -14,6 +14,7 @@ export default function AuthComponent() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [avatarSrc, setAvatarSrc] = useState<string | null>(session?.user?.image || null);
 
   const handleNavigateToLogin = () => {
     router.push('/login');
@@ -23,6 +24,11 @@ export default function AuthComponent() {
     setIsSigningOut(true);
     await signOut();
     setIsSigningOut(false);
+  };
+
+  const handleAvatarError = () => {
+    // Quando ocorrer um erro, carrega uma imagem de cachorro do Unsplash
+    setAvatarSrc("https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&h=64&q=80");
   };
 
   return (
@@ -42,11 +48,12 @@ export default function AuthComponent() {
             <div className="h-16 w-16 mb-4 rounded-full bg-muted flex items-center justify-center overflow-hidden">
               {session.user?.image ? (
                 <Image 
-                  src={session.user.image} 
+                  src={avatarSrc || session.user.image} 
                   alt={session.user.name || 'Avatar'} 
                   width={64}
                   height={64}
                   className="w-full h-full object-cover"
+                  onError={handleAvatarError}
                 />
               ) : (
                 <span className="text-xl font-semibold">{session.user?.name?.charAt(0) || 'U'}</span>
