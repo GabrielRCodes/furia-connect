@@ -4,11 +4,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { FiArrowLeft, FiLogIn } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
-import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { toast } from 'sonner';
+import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const t = useTranslations('Login');
@@ -38,7 +38,7 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);
-      await signIn('google', { callbackUrl: '/' });
+      await signIn('google', { redirectTo: '/' });
     } catch {
       toast.error(t('errors.default'));
       setIsLoading(false);

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -14,7 +14,7 @@ export default function AuthComponent() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [isSigningOut, setIsSigningOut] = useState(false);
-  const [avatarSrc, setAvatarSrc] = useState<string | null>(session?.user?.image || null);
+  const [ avatarError, setAvatarError ] = useState(false);
 
   const handleNavigateToLogin = () => {
     router.push('/login');
@@ -26,10 +26,7 @@ export default function AuthComponent() {
     setIsSigningOut(false);
   };
 
-  const handleAvatarError = () => {
-    // Quando ocorrer um erro, carrega uma imagem de cachorro do Unsplash
-    setAvatarSrc("https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&h=64&q=80");
-  };
+  const errorAvatar = "https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=64&h=64&q=80"
 
   return (
     <Card className="bg-card">
@@ -47,14 +44,26 @@ export default function AuthComponent() {
           <div className="flex flex-col items-center justify-center py-2">
             <div className="h-16 w-16 mb-4 rounded-full bg-muted flex items-center justify-center overflow-hidden">
               {session.user?.image ? (
-                <Image 
-                  src={avatarSrc || session.user.image} 
-                  alt={session.user.name || 'Avatar'} 
-                  width={64}
-                  height={64}
-                  className="w-full h-full object-cover"
-                  onError={handleAvatarError}
-                />
+                <>
+                  {avatarError === false ? (
+                    <Image 
+                      src={session.user.image} 
+                      alt={session.user.name || 'Avatar'} 
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                      onError={() => setAvatarError(true)}
+                    />
+                  ) : (
+                    <Image 
+                      src={errorAvatar} 
+                      alt={'Avatar'} 
+                      width={64}
+                      height={64}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
+                </>
               ) : (
                 <span className="text-xl font-semibold">{session.user?.name?.charAt(0) || 'U'}</span>
               )}
