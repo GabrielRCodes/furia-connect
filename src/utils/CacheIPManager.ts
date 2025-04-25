@@ -71,7 +71,7 @@ export const CacheIPManager = async ({ ip, type, waitTime }: CacheIPManagerProps
       message: "Cache atualizado com sucesso!" 
     }
 
-  } catch(error) {
+  } catch(_) {
     return { 
       status: 404, 
       message: "Ocorreu um erro ao gerenciar o cache!" 
