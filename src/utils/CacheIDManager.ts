@@ -17,17 +17,19 @@ export const CacheIDManager = async ({ type, waitTime }: CacheIDManagerProps) =>
 
     const session = await auth()
 
-    if ( !session ) {
+    if ( !session || !session.user?.id ) {
       return { 
         status: 404, 
         message: "Acesso não autorizado." 
       }
     }
 
+    const userId = String(session.user.id);
+
     const cache = await prisma.cacheIdManager.findUnique({
       where: {
         type_userId: {
-          userId: String(session?.user?.id),
+          userId,
           type: String(type)
         }
       },
@@ -42,7 +44,7 @@ export const CacheIDManager = async ({ type, waitTime }: CacheIDManagerProps) =>
     if ( !cache ) {
       await prisma.cacheIdManager.create({
         data: {
-          userId: String(session?.user?.id),
+          userId,
           type: String(type)
         }
       })
@@ -53,21 +55,22 @@ export const CacheIDManager = async ({ type, waitTime }: CacheIDManagerProps) =>
       }
     }
 
-    const diffS = cache?.lastActivity! >= sub(now, { seconds: waitTime })
+    const lastActivity = cache.lastActivity || new Date(0);
+    const diffS = lastActivity >= sub(now, { seconds: waitTime });
 
     if ( diffS ) {
       return { status: 429, message: `Você precisa aguardar para fazer isso novamente.` }
     }
 
-    await prisma?.cacheIdManager.update({
+    await prisma.cacheIdManager.update({
       where: {
         type_userId: {
-          userId: String(session?.user?.id),
+          userId,
           type: String(type)
         }
       },
       data: {
-        userId: String(session?.user?.id),
+        userId,
         lastActivity: now,
         counter: {
           increment: 1

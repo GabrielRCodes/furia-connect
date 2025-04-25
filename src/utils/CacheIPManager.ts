@@ -43,13 +43,14 @@ export const CacheIPManager = async ({ ip, type, waitTime }: CacheIPManagerProps
       }
     }
 
-    const diffS = cache?.lastActivity! >= sub(now, { seconds: waitTime })
+    const lastActivity = cache.lastActivity || new Date(0);
+    const diffS = lastActivity >= sub(now, { seconds: waitTime });
 
     if ( diffS ) {
       return { status: 429, message: `Você precisa aguardar para fazer isso novamente.` }
     }
 
-    await prisma?.cacheIPManager.update({
+    await prisma.cacheIPManager.update({
       where: {
         type_userIP: {
           userIP: String(ip),
