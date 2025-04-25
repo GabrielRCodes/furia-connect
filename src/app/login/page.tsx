@@ -67,7 +67,7 @@ export default function LoginPage() {
         redirect: true
       });
       
-    } catch (error) {
+    } catch {
       toast.error(t('errors.default'));
       setIsLoading(false);
     }
