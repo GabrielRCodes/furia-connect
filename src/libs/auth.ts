@@ -7,6 +7,16 @@ import { prisma } from './prisma';
 /**
  * Módulo para configuração do Next-Auth
  */
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -20,6 +30,17 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
+  callbacks: {
+    session: ({ session, user }) => {
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.image = user.image;
+        session.user.name = user.name;
+        session.user.email = user.email;
+      }
+      return session;
+    },
+  }
 };
 
 /**
