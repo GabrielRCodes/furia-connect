@@ -19,6 +19,7 @@ const nextConfig = {
   images: {
     domains: [
       'lh3.googleusercontent.com', // Google OAuth avatars
+      'res.cloudinary.com', // Cloudinary images
     ],
     unoptimized: true, // Desabilita a otimização automática de imagens pelo Next.js
   }
