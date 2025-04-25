@@ -83,7 +83,7 @@ export const CacheIDManager = async ({ type, waitTime }: CacheIDManagerProps) =>
       message: "Cache atualizado com sucesso!" 
     }
 
-  } catch(_) {
+  } catch {
     return { 
       status: 404, 
       message: "Ocorreu um erro ao gerenciar o cache!" 
