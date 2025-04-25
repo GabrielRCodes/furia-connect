@@ -32,7 +32,7 @@ export default function Home() {
           <ClientComponent />
           <ThemeComponent />
         </div>
-      </div>
+    </div>
     </main>
   );
 }

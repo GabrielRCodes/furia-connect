@@ -1,6 +1,7 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
+import ResendProvider from './resend-provider';
 import { prisma } from './prisma';
 
 /**
@@ -14,11 +15,16 @@ export const authOptions = {
   },
   pages: {
     signIn: '/login',
+    verifyRequest: '/verify-request',
   },
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
+    ResendProvider({
+      apiKey: process.env.RESEND_API_KEY || '',
+      from: process.env.EMAIL_FROM || 'noreply@furiaconnect.com',
     }),
   ],
 };

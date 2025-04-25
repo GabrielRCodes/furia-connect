@@ -101,6 +101,10 @@ NEXTAUTH_SECRET="sua-chave-secreta"
 # Google Provider
 GOOGLE_CLIENT_ID="seu-client-id-do-google"
 GOOGLE_CLIENT_SECRET="seu-client-secret-do-google"
+
+# Resend API
+RESEND_API_KEY="re_123456789" # Sua chave API do Resend
+EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
 ```
 
 ### Como obter as credenciais necessárias:
@@ -140,3 +144,27 @@ Este projeto está sob a licença [MIT](LICENSE).
 ---
 
 Desenvolvido com ❤️ para a comunidade FURIA.
+
+## Autenticação
+
+### Provedores suportados
+
+- **Google**: Login social com contas Google
+- **Email (Resend)**: Login via link mágico enviado por email
+
+### Configuração do Resend
+
+Para configurar o login via email com Resend:
+
+1. Crie uma conta em [Resend](https://resend.com)
+2. Obtenha sua API key no painel
+3. Verifique seu domínio ou use um domínio temporário fornecido pelo Resend
+4. Configure as seguintes variáveis de ambiente:
+
+```env
+# Resend API
+RESEND_API_KEY="re_123456789" # Sua chave API do Resend
+EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
+```
+
+O template de email de verificação já está configurado com um design moderno que segue a identidade visual do FURIA Connect.

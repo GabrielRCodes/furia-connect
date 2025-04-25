@@ -49,6 +49,11 @@
     "title": "Entrar no FURIA Connect",
     "description": "Escolha um método de login para acessar a plataforma",
     "google": "Continuar com Google",
+    "socialLogin": "Login social",
+    "emailLogin": "Login por email",
+    "emailPlaceholder": "Digite seu endereço de email",
+    "emailRequired": "Email é obrigatório",
+    "continueWithEmail": "Continuar com email",
     "or": "ou",
     "backToHome": "Voltar para a página inicial",
     "footer": "FURIA Connect - Conectando a comunidade FURIA",
@@ -63,6 +68,15 @@
       "EmailSignin": "Erro ao enviar o e-mail de login.",
       "CredentialsSignin": "Falha na autenticação. Verifique seus dados."
     }
+  },
+  "VerifyRequest": {
+    "title": "Verificação de E-mail",
+    "description": "Um link de verificação foi enviado para o seu e-mail",
+    "checkInbox": "Por favor, verifique sua caixa de entrada e clique no link enviado para completar o processo de login.",
+    "checkSpam": "Se não encontrar o e-mail, verifique também sua pasta de spam.",
+    "expiration": "O link de verificação expirará em 1 hora.",
+    "backToLogin": "Voltar para o login",
+    "emailSentTo": "Email enviado para:"
   },
   "Auth": {
     "title": "Autenticação",
