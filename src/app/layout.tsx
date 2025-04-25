@@ -14,8 +14,41 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FURIA Connect",
-  description: "Plataforma de conexão FURIA",
+  title: "FURIA Connect | Conecte-se com a FURIA",
+  description: "Uma plataforma feita para conectar fãs da FURIA. Conecte-se, conheça outros fãs, apoie o projeto e acompanhe todas as novidades da organização.",
+  keywords: ["FURIA", "eSports", "comunidade", "jogos", "eventos", "gaming"],
+  authors: [{ name: "FURIA eSports" }],
+  creator: "FURIA",
+  publisher: "FURIA eSports",
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    url: "https://furia-connect.0r1.org",
+    title: "FURIA Connect | Conecte-se com a FURIA",
+    description: "Uma plataforma feita para conectar fãs da FURIA. Conecte-se, conheça outros fãs, apoie o projeto e acompanhe todas as novidades da organização.",
+    siteName: "FURIA Connect",
+    images: [
+      {
+        url: "https://res.cloudinary.com/dnuayiowd/image/upload/v1745531725/LOGO-MAIN_linrk0.png",
+        width: 1200,
+        height: 630,
+        alt: "FURIA Connect - Plataforma Oficial",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FURIA Connect | Conecte-se com a FURIA",
+    description: "Uma plataforma feita para conectar fãs da FURIA. Conecte-se, conheça outros fãs, apoie o projeto e acompanhe todas as novidades da organização.",
+    images: ["https://res.cloudinary.com/dnuayiowd/image/upload/v1745531725/LOGO-MAIN_linrk0.png"],
+    creator: "@furiagg",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
+  metadataBase: new URL("https://furia-connect.0r1.org"),
 };
 
 // Impedir que esta página seja armazenada em cache para garantir que mudanças de idioma sejam aplicadas
@@ -53,7 +86,7 @@ export default async function RootLayout({
             <Providers>
               <div className="relative flex min-h-screen flex-col">
                 <div className="flex-1">
-        {children}
+                  {children}
                 </div>
               </div>
               <Toaster />
