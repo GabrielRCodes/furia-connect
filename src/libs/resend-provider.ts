@@ -1,4 +1,3 @@
-import type { CommonProviderOptions } from "next-auth/providers";
 import { Resend } from "resend";
 import { cookies } from "next/headers";
 
@@ -18,23 +17,17 @@ export interface ResendEmailConfig {
   server?: string;
 }
 
-export default function ResendProvider(options: ResendEmailConfig): ReturnType<any> {
-  // Log para debug durante a inicialização
-  // console.log("[ResendProvider] Inicializando com opções:", {
-  //   from: options.from,
-  //   apiKeyDefined: !!options.apiKey
-  // });
-  
+export default function ResendProvider(options: ResendEmailConfig) {
   return {
     id: "resend",
-    type: "email",
+    type: "email" as const,
     name: "Resend",
     sendVerificationRequest,
     options,
   };
 }
 
-async function sendVerificationRequest(params: {
+export async function sendVerificationRequest(params: {
   identifier: string;
   url: string;
   provider: {
@@ -45,13 +38,6 @@ async function sendVerificationRequest(params: {
 }) {
   const { identifier, url, provider } = params;
   const { apiKey, from } = provider;
-
-  // console.log("[ResendProvider] Tentando enviar email para:", identifier);
-  // console.log("[ResendProvider] URL de verificação:", url);
-  // console.log("[ResendProvider] Configurações:", {
-  //   from,
-  //   apiKeyDefined: !!apiKey
-  // });
 
   if (!apiKey) {
     console.error("[ResendProvider] API key não definida");
@@ -68,8 +54,6 @@ async function sendVerificationRequest(params: {
   const localeCookie = cookieStore.get('NEXT_LOCALE');
   const userLocale = localeCookie?.value || 'pt-BR';
   const isEnglish = userLocale !== 'pt-BR';
-  
-  // console.log("[ResendProvider] Idioma do usuário:", userLocale);
 
   // Estilos compartilhados para melhor centralização
   const sharedStyles = {
@@ -150,9 +134,6 @@ async function sendVerificationRequest(params: {
   const resend = new Resend(apiKey);
 
   try {
-    // console.log("[ResendProvider] Iniciando envio de email...");
-    // console.log("[ResendProvider] Enviando email em:", isEnglish ? "inglês" : "português");
-    
     // Enviar o email com o template adequado ao idioma
     const { data, error } = await resend.emails.send({
       from: from,
@@ -176,16 +157,14 @@ async function sendVerificationRequest(params: {
         path: '/',
         sameSite: 'lax',
       });
-      // console.log("[ResendProvider] Cookie de verificação definido para:", identifier);
     } catch (cookieError) {
       console.error("[ResendProvider] Erro ao definir cookie:", cookieError);
       // Não interrompe o fluxo se houver erro ao definir o cookie
     }
 
-    // console.log("[ResendProvider] Email enviado com sucesso. ID:", data?.id);
     return { success: true, messageId: data?.id };
-  } catch (error: any) {
+  } catch (error) {
     console.error("[ResendProvider] Erro ao enviar e-mail com Resend:", error);
-    throw new Error(`Erro ao enviar e-mail: ${error.message}`);
+    throw new Error(`Erro ao enviar e-mail: ${error instanceof Error ? error.message : 'Erro desconhecido'}`);
   }
 } 

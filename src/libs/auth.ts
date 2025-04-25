@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import ResendProvider from './resend-provider';
 import { prisma } from './prisma';
@@ -24,10 +24,10 @@ export const authOptions = {
     }),
     ResendProvider({
       apiKey: process.env.RESEND_API_KEY || '',
-      from: process.env.EMAIL_FROM || 'noreply@furiaconnect.com',
+      from: process.env.EMAIL_FROM || 'login@authentication.0r1.org',
     }),
   ],
-};
+} as NextAuthConfig;
 
 /**
  * Exportação no formato solicitado

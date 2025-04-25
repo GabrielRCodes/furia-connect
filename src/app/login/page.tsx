@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { FiArrowLeft, FiLogIn, FiMail } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'sonner';
@@ -15,7 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 export default function LoginPage() {
   const t = useTranslations('Login');
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -60,7 +59,6 @@ export default function LoginPage() {
 
     try {
       setIsLoading(true);
-      console.log("[Login] Tentando login com email:", email);
       
       // Usando o signIn com o provider 'resend' (ID do nosso provider personalizado)
       await signIn('resend', {
@@ -70,7 +68,6 @@ export default function LoginPage() {
       });
       
     } catch (error) {
-      console.error("[Login] Exceção ao tentar login:", error);
       toast.error(t('errors.default'));
       setIsLoading(false);
     }
