@@ -61,3 +61,21 @@ model Message {
   content   String   @db.Text
   createdAt DateTime @default(now())
 }
+
+model CacheIPManager {
+  type         String    @default("cache")
+  userIP       String
+  counter      Int       @default(0)
+  lastActivity DateTime? @default(now())
+
+  @@id([type, userIP])
+}
+
+model CacheIdManager {
+  type         String    @default("cache")
+  userId       String
+  counter      Int       @default(0)
+  lastActivity DateTime? @default(now())
+
+  @@id([type, userId])
+}
