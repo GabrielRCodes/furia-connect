@@ -59,7 +59,7 @@ export function PreferencesModal() {
         setOpen(true);
       }
     }
-  }, [setTheme]);
+  }, []);
   
   // Sincronizar o estado local com o contexto quando não estiver carregando
   useEffect(() => {
