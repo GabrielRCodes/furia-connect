@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Dialog, DialogContent as BaseDialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import React from 'react';
+import { useLocale } from './Providers';
 
 // Cookie Name
 const PREFERENCES_COOKIE = 'preferencesSelected';
@@ -35,7 +35,7 @@ export function PreferencesModal() {
   const [selectedLanguage, setSelectedLanguage] = useState('pt-BR');
   const [selectedTheme, setSelectedTheme] = useState('dark');
   const { setTheme } = useTheme();
-  const router = useRouter();
+  const { locale, setLocale, isLoading } = useLocale();
 
   // Verificar se as preferências já foram selecionadas
   useEffect(() => {
@@ -60,6 +60,13 @@ export function PreferencesModal() {
       }
     }
   }, [setTheme]);
+  
+  // Sincronizar o estado local com o contexto quando não estiver carregando
+  useEffect(() => {
+    if (!isLoading) {
+      setSelectedLanguage(locale);
+    }
+  }, [isLoading, locale]);
 
   // Salvar preferências e fechar o modal
   const savePreferences = () => {
@@ -77,15 +84,9 @@ export function PreferencesModal() {
     // Aplicar tema
     setTheme(selectedTheme);
     
-    // Redirecionar para a versão localizada
-    if (selectedLanguage && selectedLanguage !== 'pt-BR') {
-      const newPath = window.location.pathname.startsWith('/en') 
-        ? window.location.pathname 
-        : `/en${window.location.pathname}`;
-      router.push(newPath);
-    } else if (selectedLanguage === 'pt-BR' && window.location.pathname.startsWith('/en')) {
-      const newPath = window.location.pathname.replace(/^\/en/, '');
-      router.push(newPath || '/');
+    // Aplicar idioma usando o contexto
+    if (selectedLanguage !== locale) {
+      setLocale(selectedLanguage);
     }
     
     setOpen(false);
