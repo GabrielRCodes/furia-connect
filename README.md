@@ -52,7 +52,7 @@ yarn install
 
 3. Configure as variáveis de ambiente:
 ```bash
-cp .env.example .env.local
+cp .env.local
 ```
 
 4. Configure e inicialize o Prisma:
@@ -129,22 +129,6 @@ EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
    - Copie a URL de conexão completa (formato: `mysql://user:password@host:port/database`)
    - A Railway fornece automaticamente todas as informações necessárias para a conexão, incluindo usuário, senha, host e porta na variável `DATABASE_URL`
 
-## 🌐 Internacionalização
-
-O projeto suporta múltiplos idiomas. Os arquivos de tradução estão localizados em:
-
-```
-src/i18n/messages/
-```
-
-## 📝 Licença
-
-Este projeto está sob a licença [MIT](LICENSE).
-
----
-
-Desenvolvido com ❤️ para a comunidade FURIA.
-
 ## Autenticação
 
 ### Provedores suportados
@@ -168,3 +152,20 @@ EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
 ```
 
 O template de email de verificação já está configurado com um design moderno que segue a identidade visual do FURIA Connect.
+
+## 🌐 Internacionalização
+
+O projeto suporta múltiplos idiomas. Os arquivos de tradução estão localizados em:
+
+```
+src/i18n/messages/
+```
+
+## 📝 Licença
+
+Este projeto está sob a licença [MIT](LICENSE).
+
+---
+
+Desenvolvido com ❤️ para a comunidade FURIA.
+
