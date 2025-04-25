@@ -39,26 +39,13 @@ export function PreferencesModal() {
 
   // Verificar se as preferências já foram selecionadas
   useEffect(() => {
+    
     const preferencesSelected = Cookies.get(PREFERENCES_COOKIE);
     
     if (!preferencesSelected) {
       setOpen(true);
-    } else {
-      try {
-        // Se existir cookie, carregar as preferências
-        const preferences = JSON.parse(preferencesSelected);
-        if (preferences.language) {
-          setSelectedLanguage(preferences.language);
-        }
-        if (preferences.theme) {
-          setSelectedTheme(preferences.theme);
-          setTheme(preferences.theme);
-        }
-      } catch (error) {
-        console.error('Erro ao carregar preferências:', error);
-        setOpen(true);
-      }
-    }
+    } 
+
   }, []);
   
   // Sincronizar o estado local com o contexto quando não estiver carregando
