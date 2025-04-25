@@ -3,6 +3,16 @@
 import { prisma } from "@/libs/prisma";
 import { sub } from "date-fns";
 
+/**
+ * Gerencia o cache de IP para controle de taxa de requisições
+ * Esta função é usada pela Server Action em /app/actions.ts para limitar a frequência
+ * de tentativas de login e outras ações sensíveis baseadas no IP do cliente.
+ * 
+ * @param ip - Endereço IP do cliente (obtido via headers na Server Action)
+ * @param type - Tipo de ação sendo monitorada (ex: 'email_login', 'google_login')
+ * @param waitTime - Tempo de espera em segundos entre requisições permitidas
+ * @returns Objeto contendo status e mensagem
+ */
 interface CacheIPManagerProps {
   ip: string,
   type: string,

@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { signIn } from 'next-auth/react';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { checkLoginRate } from '../actions';
 
 export default function LoginPage() {
   const t = useTranslations('Login');
@@ -41,6 +42,15 @@ export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);
+      
+      // Verificar se o usuário pode tentar login
+      const rateCheck = await checkLoginRate('google_login', 60);
+      if (rateCheck.status !== 200) {
+        toast.error(rateCheck.message);
+        setIsLoading(false);
+        return;
+      }
+      
       await signIn('google', { callbackUrl: '/' });
     } catch {
       toast.error(t('errors.default'));
@@ -59,6 +69,14 @@ export default function LoginPage() {
 
     try {
       setIsLoading(true);
+      
+      // Verificar se o usuário pode tentar login com email
+      const rateCheck = await checkLoginRate('email_login', 600);
+      if (rateCheck.status !== 200) {
+        toast.error(rateCheck.message);
+        setIsLoading(false);
+        return;
+      }
       
       // Usando o signIn com o provider 'resend' (ID do nosso provider personalizado)
       await signIn('resend', {
