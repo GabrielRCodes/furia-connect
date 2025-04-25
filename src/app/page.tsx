@@ -4,6 +4,7 @@ import ClientComponent from '../components/TestComponents/ClientComponent';
 import ThemeComponent from '../components/TestComponents/ThemeComponent';
 import ToastTestComponent from '../components/TestComponents/ToastTestComponent';
 import AuthComponent from '../components/TestComponents/AuthComponent';
+import HomeLogo from '@/components/HomeLogo';
 
 // Desabilitar cache para atualizações de idioma
 export const dynamic = 'force-dynamic';
@@ -15,7 +16,8 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
       <div className="w-full max-w-5xl space-y-8">
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-4">
+          <HomeLogo />
           <h1 className="text-4xl font-bold tracking-tight">{t('title')}</h1>
           <p className="text-muted-foreground">{t('description')}</p>
         </div>
@@ -30,7 +32,7 @@ export default function Home() {
           <ClientComponent />
           <ThemeComponent />
         </div>
-    </div>
+      </div>
     </main>
   );
 }
