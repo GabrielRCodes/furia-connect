@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider as NextThemeProvider } from 'next-themes';
 import Cookies from 'js-cookie';
+import { PreferencesModal } from './PreferencesModal';
 
 type LocaleContextType = {
   locale: string;
@@ -60,6 +61,7 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <NextThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <LocaleProvider>
+        <PreferencesModal />
         {children}
       </LocaleProvider>
     </NextThemeProvider>
