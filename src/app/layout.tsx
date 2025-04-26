@@ -7,6 +7,7 @@ import { Providers } from '@/components/Providers';
 import { AuthProvider } from '@/components/AuthProvider';
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { HeaderWrapper } from '@/components/HeaderWrapper';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -85,6 +86,7 @@ export default async function RootLayout({
           <NextIntlClientProvider locale={locale} messages={messages}>
             <Providers>
               <div className="relative flex min-h-screen flex-col">
+                <HeaderWrapper />
                 <div className="flex-1">
                   {children}
                 </div>

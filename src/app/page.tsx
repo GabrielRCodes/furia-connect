@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8">
-      <div className="w-full max-w-5xl space-y-8">
+      <div className="w-full max-w-5xl space-y-8 h-[3000px]">
         <div className="text-center space-y-4">
           <HomeLogo />
           <h1 className="text-4xl font-bold tracking-tight">{t('title')}</h1>
@@ -32,7 +32,7 @@ export default function Home() {
           <ClientComponent />
           <ThemeComponent />
         </div>
-    </div>
+      </div>
     </main>
   );
 }

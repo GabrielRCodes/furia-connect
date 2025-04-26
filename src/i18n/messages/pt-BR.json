@@ -45,6 +45,46 @@
     "about": "Sobre",
     "contact": "Contato"
   },
+  "Header": {
+    "navigation": {
+      "about": "Sobre",
+      "shop": "Loja",
+      "fans": "Torcida",
+      "contact": "Contato",
+      "chat": "Chat"
+    },
+    "sidebar": {
+      "title": "Menu",
+      "navigation": "Navegação",
+      "socialNetworks": "Redes sociais"
+    }
+  },
+  "HeaderActions": {
+    "theme": {
+      "toggle": "Alternar tema",
+      "light": "Claro",
+      "dark": "Escuro"
+    },
+    "language": {
+      "toggle": "Alterar idioma",
+      "portuguese": "Português",
+      "english": "English"
+    },
+    "buttons": {
+      "connect": "Conectar",
+      "chat": "Chat",
+      "settings": "Configurações",
+      "disconnect": "Desconectar" 
+    },
+    "preferences": {
+      "title": "Preferências",
+      "description": "Personalize a sua experiência no FURIA Connect",
+      "account": "Conta",
+      "preferences": "Preferências",
+      "theme": "Tema",
+      "language": "Idioma"
+    }
+  },
   "Login": {
     "title": "Entrar no FURIA Connect",
     "description": "Escolha um método de login para acessar a plataforma",

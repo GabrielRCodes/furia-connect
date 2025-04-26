@@ -45,6 +45,46 @@
     "about": "About",
     "contact": "Contact"
   },
+  "Header": {
+    "navigation": {
+      "about": "About",
+      "shop": "Shop",
+      "fans": "Fans",
+      "contact": "Contact",
+      "chat": "Chat"
+    },
+    "sidebar": {
+      "title": "Menu",
+      "navigation": "Navigation",
+      "socialNetworks": "Social Networks"
+    }
+  },
+  "HeaderActions": {
+    "theme": {
+      "toggle": "Toggle theme",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "toggle": "Change language",
+      "portuguese": "Portuguese",
+      "english": "English"
+    },
+    "buttons": {
+      "connect": "Connect",
+      "chat": "Chat",
+      "settings": "Settings",
+      "disconnect": "Disconnect" 
+    },
+    "preferences": {
+      "title": "Preferences",
+      "description": "Customize your FURIA Connect experience",
+      "account": "Account",
+      "preferences": "Preferences",
+      "theme": "Theme",
+      "language": "Language"
+    }
+  },
   "Login": {
     "title": "Sign in to FURIA Connect",
     "description": "Choose a login method to access the platform",
