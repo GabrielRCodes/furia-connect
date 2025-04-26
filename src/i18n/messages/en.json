@@ -153,6 +153,62 @@
         "description": "Join discussions and connect with other fans.",
         "preview": "Community chat preview"
       }
+    },
+    "fan": {
+      "title": "FURIA Fan Club",
+      "subtitle": "The most passionate fans in Brazil",
+      "description": "Join the FURIA family and experience incredible moments alongside other passionate fans. We are known for our energy, dedication, and loyalty at all events.",
+      "support": {
+        "title": "Fast Support",
+        "description": "Priority access to our service channels and issue resolution with FURIA's dedicated team."
+      },
+      "community": {
+        "title": "Community Contact",
+        "description": "Join exclusive fan groups and connect with fans from all over the world to talk about anything."
+      },
+      "conclusion": "As a member of the official fan club, you'll be closer to your idols and part of this ever-growing community throughout Brazil.",
+      "button": "Join the fan club",
+      "imageAlt": "FURIA Fans at IEM Rio Major 2022"
+    },
+    "store": {
+      "title": "FURIA Store",
+      "subtitle": "Official merchandise",
+      "description": "Find the best FURIA apparel and accessories in our official store. Each product is designed with our fans in mind, combining style, comfort, and team pride.",
+      "delivery": {
+        "title": "Fast Shipping",
+        "description": "Nationwide delivery with tracking and expedited shipping options. We ship to over 20 countries."
+      },
+      "quality": {
+        "title": "Premium Quality",
+        "description": "All products are made with high-quality materials to ensure durability and comfort."
+      },
+      "conclusion": "Our store offers exclusive collections and limited editions throughout the year. FURIA members get early access and special discounts.",
+      "button": "Visit the store",
+      "imageAlt": "FURIA Official Logo"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "Connect with us and be part of our story",
+      "heading": "How can we assist you today?",
+      "description": "FURIA Connect offers a unified platform for all your questions, support needs, and community interactions. Talk directly with our team and join the conversation.",
+      "cards": {
+        "community": {
+          "title": "Community Connection",
+          "description": "Connect with other fans, discuss strategies, and share your passion for FURIA."
+        },
+        "support": {
+          "title": "Real-time Connection",
+          "description": "Interact directly and in real-time with our team for a more dynamic experience."
+        },
+        "questions": {
+          "title": "General Inquiries",
+          "description": "Ask questions about teams, players, upcoming events, or partnership opportunities."
+        }
+      },
+      "cta": {
+        "prompt": "Ready to connect with FURIA?",
+        "button": "Start chatting"
+      }
     }
   }
 } 

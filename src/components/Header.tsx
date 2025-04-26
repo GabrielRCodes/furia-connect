@@ -34,7 +34,7 @@ export function Header() {
 
   return (
     <div className="w-full border-b border-border">
-      <div className="w-full max-w-5xl mx-auto flex justify-between items-center py-2 px-4 text-sm">
+      <div className="w-full max-w-7xl mx-auto flex justify-between items-center py-2 px-4 text-sm">
         {/* Versão Desktop - Links de navegação à esquerda */}
         <nav className="hidden md:flex items-center space-x-6">
           <Link href="#" className="flex items-center text-foreground/70 hover:text-primary transition-colors">

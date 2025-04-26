@@ -9,7 +9,7 @@ export default function HeroSection() {
   const t = useTranslations('Home.hero');
   
   return (
-    <section className="container mx-auto py-8 px-4 max-w-7xl">
+    <section className="container mx-auto px-4 max-w-7xl">
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Imagem vertical da esquerda (clicável) */}
         <Link href="/chat" className="lg:w-1/3 relative min-h-[480px] rounded-xl overflow-hidden bg-accent/20 block group">

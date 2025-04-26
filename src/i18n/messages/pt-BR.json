@@ -153,6 +153,62 @@
         "description": "Participe de discussões e conecte-se com outros fãs.",
         "preview": "Prévia do chat comunitário"
       }
+    },
+    "fan": {
+      "title": "Torcida FURIA",
+      "subtitle": "A torcida mais apaixonada do Brasil",
+      "description": "Faça parte da família FURIA e viva momentos incríveis ao lado de outros torcedores apaixonados. Somos conhecidos pela energia, dedicação e lealdade em todos os eventos.",
+      "support": {
+        "title": "Suporte rápido",
+        "description": "Acesso prioritário aos nossos canais de atendimento e resolução de dúvidas com a equipe dedicada da FURIA."
+      },
+      "community": {
+        "title": "Contato com a comunidade",
+        "description": "Participe de grupos exclusivos para torcedores e conecte-se com fãs de todo o mundo."
+      },
+      "conclusion": "Como membro da torcida oficial, você estará mais próximo dos seus ídolos e fará parte desta comunidade que não para de crescer.",
+      "button": "Junte-se à torcida",
+      "imageAlt": "Torcida FURIA na IEM Rio Major 2022"
+    },
+    "store": {
+      "title": "Loja FURIA",
+      "subtitle": "Produtos oficiais",
+      "description": "Encontre os melhores produtos e acessórios FURIA em nossa loja oficial. Cada produto é desenhado pensando em nossos fãs para garantir a qualidade e o conforto.",
+      "delivery": {
+        "title": "Entrega Rápida",
+        "description": "Entrega para todo o Brasil com rastreamento e opções de envio expresso. Enviamos para mais de 20 países."
+      },
+      "quality": {
+        "title": "Qualidade Premium",
+        "description": "Todos os produtos são feitos com materiais de alta qualidade para garantir durabilidade e conforto."
+      },
+      "conclusion": "Nossa loja oferece coleções exclusivas e edições limitadas ao longo do ano. Membros FURIA têm acesso antecipado e descontos especiais.",
+      "button": "Visitar a loja",
+      "imageAlt": "Logo Oficial da FURIA"
+    },
+    "contact": {
+      "title": "Fale Conosco",
+      "subtitle": "Conecte-se conosco e faça parte da nossa história",
+      "heading": "Como podemos ajudar você hoje?",
+      "description": "O FURIA Connect oferece uma plataforma unificada para todas as suas dúvidas, necessidades de suporte e interações com a comunidade.",
+      "cards": {
+        "community": {
+          "title": "Conexão com a Comunidade",
+          "description": "Conecte-se com outros fãs, discuta estratégias e compartilhe sua paixão pela FURIA."
+        },
+        "support": {
+          "title": "Conexão em Tempo Real",
+          "description": "Interaja diretamente e em tempo real com nossa equipe para uma experiência mais dinâmica."
+        },
+        "questions": {
+          "title": "Dúvidas Gerais",
+          "description": "Faça perguntas sobre times, jogadores, eventos futuros ou oportunidades de parceria."
+        }
+      },
+      "cta": {
+        "prompt": "Quer se conectar com a FURIA?",
+        "button": "Iniciar chat"
+      }
     }
   }
 } 
