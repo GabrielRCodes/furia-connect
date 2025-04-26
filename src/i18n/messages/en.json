@@ -125,5 +125,34 @@
     "notLoggedIn": "You are not logged in",
     "signIn": "Sign in",
     "signOut": "Sign out"
+  },
+  "Home": {
+    "hero": {
+      "slogan": "Connecting you with the FURIA community",
+      "learnMore": "Learn more",
+      "tapToExplore": "Tap to explore",
+      "accessNow": "Access now",
+      "askQuestions": {
+        "title": "Ask questions",
+        "description": "Chat with our bot and get answers to your questions."
+      },
+      "contactFuria": {
+        "title": "Get in touch",
+        "description": "Connect directly with the team and share your ideas."
+      },
+      "matchSchedule": {
+        "title": "Match schedule",
+        "description": "Stay up to date with upcoming games and competitions."
+      },
+      "contentCreators": {
+        "title": "Content creators",
+        "description": "Meet the official content creators and their channels."
+      },
+      "community": {
+        "title": "FURIA Community",
+        "description": "Join discussions and connect with other fans.",
+        "preview": "Community chat preview"
+      }
+    }
   }
 } 

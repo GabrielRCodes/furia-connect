@@ -37,48 +37,48 @@ export function Header() {
       <div className="w-full max-w-5xl mx-auto flex justify-between items-center py-2 px-4 text-sm">
         {/* Versão Desktop - Links de navegação à esquerda */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#" className="flex items-center hover:text-primary transition-colors">
+          <Link href="#" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
             <FiMessageCircle className="h-5 w-5 stroke-[2.5px]" aria-label={t('navigation.chat')} />
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
             {t('navigation.about')}
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
-            {t('navigation.shop')}
-          </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
             {t('navigation.fans')}
           </Link>
-          <Link href="#" className="hover:text-primary transition-colors">
+          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
+            {t('navigation.shop')}
+          </Link>
+          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
             {t('navigation.contact')}
           </Link>
         </nav>
 
         {/* Versão Mobile - Apenas ícone de chat à esquerda */}
         <div className="md:hidden">
-          <Link href="#" className="flex items-center hover:text-primary transition-colors">
+          <Link href="#" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
             <FiMessageCircle className="h-5 w-5 stroke-[2.5px]" aria-label={t('navigation.chat')} />
           </Link>
         </div>
         
         {/* Versão Desktop - Redes sociais à direita */}
         <div className="hidden md:flex items-center space-x-4">
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiGithub className="h-4 w-4" aria-label="Github" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <SiTwitch className="h-4 w-4" aria-label="Twitch" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiYoutube className="h-4 w-4" aria-label="Youtube" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiTwitter className="h-4 w-4" aria-label="Twitter" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiInstagram className="h-4 w-4" aria-label="Instagram" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="hover:text-primary transition-colors">
+          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <SiDiscord className="h-4 w-4" aria-label="Discord" />
           </a>
         </div>
@@ -122,14 +122,14 @@ export function Header() {
                       className="p-2 rounded-md hover:bg-muted transition-colors"
                       onClick={() => setOpen(false)}
                     >
-                      {t('navigation.shop')}
+                      {t('navigation.fans')}
                     </Link>
                     <Link 
                       href="#" 
                       className="p-2 rounded-md hover:bg-muted transition-colors"
                       onClick={() => setOpen(false)}
                     >
-                      {t('navigation.fans')}
+                      {t('navigation.shop')}
                     </Link>
                     <Link 
                       href="#" 

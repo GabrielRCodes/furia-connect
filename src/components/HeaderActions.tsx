@@ -125,7 +125,7 @@ export function HeaderActions() {
         <Button 
           variant="ghost" 
           size="icon" 
-          className="h-8 w-8 p-0 rounded-full hover:opacity-60 transition-opacity duration-300"
+          className="h-8 w-8 p-0 rounded-full hover:opacity-60 transition-opacity duration-300 border border-primary"
           onClick={() => setIsPreferencesOpen(true)}
         >
           <Avatar>
