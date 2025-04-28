@@ -16,7 +16,7 @@ export default async function LoginLayout({
 
   // Se não estiver autenticado, mostrar o conteúdo da página de login
   return (
-    <div className="flex min-h-screen w-full items-center justify-center">
+    <div className="flex min-h-screen w-full items-center justify-center py-8">
       {children}
     </div>
   );

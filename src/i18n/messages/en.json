@@ -86,8 +86,8 @@
     }
   },
   "Login": {
-    "title": "Sign in to FURIA Connect",
-    "description": "Choose a login method to access the platform",
+    "title": "Authentication",
+    "description": "Choose a login method to access your account on the platform",
     "google": "Continue with Google",
     "socialLogin": "Social login",
     "emailLogin": "Email login",

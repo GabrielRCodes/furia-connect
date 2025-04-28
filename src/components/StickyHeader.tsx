@@ -7,7 +7,7 @@ export function StickyHeader() {
   const pathname = usePathname();
   
   // Não renderizar o header na página de login
-  if (pathname === '/login') {
+  if (pathname === '/login' || pathname === '/verify-request') {
     return null;
   }
 

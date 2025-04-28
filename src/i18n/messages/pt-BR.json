@@ -87,7 +87,7 @@
   },
   "Login": {
     "title": "Entrar no FURIA Connect",
-    "description": "Escolha um método de login para acessar a plataforma",
+    "description": "Escolha um método de autenticação para acessar sua conta na plataforma",
     "google": "Continuar com Google",
     "socialLogin": "Login social",
     "emailLogin": "Login por email",

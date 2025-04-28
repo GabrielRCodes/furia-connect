@@ -28,7 +28,7 @@ export function Header() {
   const t = useTranslations('Header');
   
   // Não renderizar o header na página de login
-  if (pathname === '/login') {
+  if (pathname === '/login' || pathname === '/verify-request') {
     return null;
   }
 
