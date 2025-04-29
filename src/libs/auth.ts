@@ -27,6 +27,12 @@ export const authOptions = {
       from: process.env.EMAIL_FROM || 'login@authentication.0r1.org',
     }),
   ],
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      // Redirecionar para a página de chat após login bem-sucedido
+      return `${baseUrl}/chat`;
+    },
+  },
 } as NextAuthConfig;
 
 /**
