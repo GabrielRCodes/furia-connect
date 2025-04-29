@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Message, Option, LiveGamesNotification, SavedUserInfo, ContactDescription } from '../types';
+import { Message, Option, LiveGamesNotification } from '../types';
 import { useChat } from './useChat';
 import { formatCpf } from '../utils/formatter';
 import { BOT_RESPONSES } from '../botResponses';
