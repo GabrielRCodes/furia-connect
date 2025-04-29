@@ -9,15 +9,13 @@ import { CacheIDManager } from '@/utils/CacheIDManager'
 const contactInfoSchema = z.object({
     name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
     email: z.string().email("E-mail inválido"),
-    cpf: z.string(),
-    mediaName: z.string().optional(),
-    mediaContact: z.string().optional()
+    cpf: z.string()
 })
 
-export async function createContactInfos(name: string, email: string, cpf: string, mediaName?: string, mediaContact?: string) {
+export async function createContactInfos(name: string, email: string, cpf: string) {
     try {
         // Validar os dados com Zod
-        const validationResult = contactInfoSchema.safeParse({ name, email, cpf, mediaName, mediaContact })
+        const validationResult = contactInfoSchema.safeParse({ name, email, cpf })
         
         if (!validationResult.success) {
             return {
@@ -68,9 +66,7 @@ export async function createContactInfos(name: string, email: string, cpf: strin
                 data: {
                     name,
                     email,
-                    cpf: cpf !== 'Não informado' ? cpf : "",
-                    mediaName,
-                    mediaContact
+                    cpf: cpf !== 'Não informado' ? cpf : ""
                 }
             })
         } else {
@@ -80,9 +76,7 @@ export async function createContactInfos(name: string, email: string, cpf: strin
                     userId: session.user.id,
                     name,
                     email,
-                    cpf: cpf !== 'Não informado' ? cpf : "",
-                    mediaName,
-                    mediaContact,
+                    cpf: cpf !== 'Não informado' ? cpf : ""
                 }
             })
         }
