@@ -15,7 +15,9 @@ export interface Message {
     cpf?: string;
     userName?: string;
     inputMode?: 'text' | 'email' | 'numeric' | 'tel' | 'url';
-    [key: string]: any;
+    selectedTeams?: string[];
+    notificationChannel?: string;
+    [key: string]: string | boolean | undefined | string[] | null;
   };
 }
 

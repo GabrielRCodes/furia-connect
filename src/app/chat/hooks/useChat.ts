@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Message, Option, SavedUserInfo, LiveGamesNotification } from '../types';
+import { Message, SavedUserInfo, LiveGamesNotification } from '../types';
 import { generateUniqueId } from '../utils/formatter';
 import { BOT_RESPONSES } from '../botResponses';
 

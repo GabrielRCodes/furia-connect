@@ -1,7 +1,6 @@
 "use client";
 
 import React from 'react';
-import { useSession } from 'next-auth/react';
 import { useMessageHandler } from './hooks/useMessageHandler';
 import ChatHeader from './components/ChatHeader';
 import MessageBubble from './components/MessageBubble';
@@ -9,7 +8,6 @@ import TypingIndicator from './components/TypingIndicator';
 import ResetDialog from './components/ResetDialog';
 
 export default function ChatPage() {
-  const { data: session } = useSession();
   const {
     messages,
     inputValue,

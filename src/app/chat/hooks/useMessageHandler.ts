@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Message, Option, LiveGamesNotification } from '../types';
 import { useChat } from './useChat';
 import { formatCpf } from '../utils/formatter';
-import { generateConfirmationText } from '../utils/notificationUtils';
 import { BOT_RESPONSES } from '../botResponses';
 
 // Interface para armazenar informações de contato
@@ -32,9 +31,7 @@ export const useMessageHandler = () => {
     setCustomCpf,
     selectedTeams,
     setSelectedTeams,
-    savedUserInfo,
     setSavedUserInfo,
-    savedNotification,
     setSavedNotification,
     messagesEndRef,
     addBotMessage,
