@@ -28,7 +28,7 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       // Redirecionar para a página de chat após login bem-sucedido
       return `${baseUrl}/chat`;
     },
