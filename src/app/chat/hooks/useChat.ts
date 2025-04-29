@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import { Message, SavedUserInfo, LiveGamesNotification } from '../types';
 import { generateUniqueId } from '../utils/formatter';
 import { BOT_RESPONSES } from '../botResponses';
+import { getContactInfos } from './getContactInfos';
 
 // Mensagem estática de boas-vindas - sem elementos dinâmicos como new Date()
 const WELCOME_MESSAGE: Omit<Message, 'timestamp'> = {
@@ -20,15 +21,18 @@ const WELCOME_MESSAGE: Omit<Message, 'timestamp'> = {
   isActive: true
 };
 
+// Mensagem do menu inicial
+const MENU_MESSAGE: Omit<Message, 'timestamp'> = {
+  ...BOT_RESPONSES['menu-after-cpf'],
+  isActive: true
+};
+
 export const useChat = () => {
-  const { data: session } = useSession();
-  // Inicializar messages com a mensagem de boas-vindas estática
-  const [messages, setMessages] = useState<Message[]>(() => [{
-    ...WELCOME_MESSAGE,
-    timestamp: new Date() // Timestamp adicionado no cliente durante a inicialização do estado
-  }]);
+  const { data: session, status } = useSession();
+  // Estado inicial com loading
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(true); // Começar com estado de digitação
   const [currentInputAction, setCurrentInputAction] = useState<string | null>(null);
   const [showResetModal, setShowResetModal] = useState(false);
   const [displayName, setDisplayName] = useState(session?.user?.name || 'Visitante');
@@ -37,8 +41,82 @@ export const useChat = () => {
   const [selectedTeams, setSelectedTeams] = useState<string[]>([]);
   const [savedUserInfo, setSavedUserInfo] = useState<SavedUserInfo | null>(null);
   const [savedNotification, setSavedNotification] = useState<LiveGamesNotification | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Verificar se o usuário já tem cadastro ao carregar
+  useEffect(() => {
+    if (status === 'loading') {
+      return; // Aguardar a sessão ser carregada
+    }
+    
+    if (session?.user && !isInitialized) {
+      checkExistingUser();
+    } else if (status === 'unauthenticated' && !isInitialized) {
+      // Se não tem sessão, mostrar a mensagem de boas-vindas normal
+      setIsTyping(false);
+      setMessages([{
+        ...WELCOME_MESSAGE,
+        timestamp: new Date()
+      }]);
+      setIsInitialized(true);
+    }
+  }, [session, status]);
+  
+  // Função para verificar se o usuário já tem cadastro
+  const checkExistingUser = async () => {
+    try {
+      setIsTyping(true);
+      
+      const result = await getContactInfos();
+      
+      if (result.exists && result.data) {
+        // Usuário já tem cadastro, ir direto para o menu
+        setDisplayName(result.data.name || session?.user?.name || 'Visitante');
+        setDisplayEmail(result.data.email || session?.user?.email || '');
+        if (result.data.cpf) {
+          setCustomCpf(result.data.cpf);
+        }
+        
+        // Definir informações salvas
+        setSavedUserInfo({
+          name: result.data.name || session?.user?.name || 'Visitante',
+          email: result.data.email || session?.user?.email || '',
+          cpf: result.data.cpf || 'Não informado',
+          timestamp: new Date()
+        });
+        
+        // Mostrar mensagem de boas-vindas de retorno
+        setTimeout(() => {
+          setIsTyping(false);
+          setMessages([{
+            ...MENU_MESSAGE,
+            id: `menu-${Date.now()}`,
+            timestamp: new Date()
+          }]);
+        }, 1000);
+      } else {
+        // Usuário não tem cadastro, mostrar fluxo normal
+        setIsTyping(false);
+        setMessages([{
+          ...WELCOME_MESSAGE,
+          timestamp: new Date()
+        }]);
+      }
+      
+      setIsInitialized(true);
+    } catch (error) {
+      console.error("Erro ao verificar usuário:", error);
+      // Em caso de erro, mostrar a mensagem de boas-vindas normal
+      setIsTyping(false);
+      setMessages([{
+        ...WELCOME_MESSAGE,
+        timestamp: new Date()
+      }]);
+      setIsInitialized(true);
+    }
+  };
   
   // Função para adicionar mensagem do bot (implementação original)
   const addBotMessage = (messageId: string, customText?: string, customData?: Message['customData']) => {
@@ -98,10 +176,19 @@ export const useChat = () => {
   // Reiniciar conversa
   const handleResetConversation = () => {
     // Limpar todas as mensagens e redefinir o estado
-    setMessages([{
-      ...WELCOME_MESSAGE,
-      timestamp: new Date() // Nova timestamp para a mensagem reiniciada
-    }]);
+    setIsTyping(true);
+    
+    // Verificar se o usuário tem cadastro novamente
+    if (session?.user) {
+      checkExistingUser();
+    } else {
+      setMessages([{
+        ...WELCOME_MESSAGE,
+        timestamp: new Date() // Nova timestamp para a mensagem reiniciada
+      }]);
+      setIsTyping(false);
+    }
+    
     setInputValue('');
     setCurrentInputAction(null);
     setShowResetModal(false);

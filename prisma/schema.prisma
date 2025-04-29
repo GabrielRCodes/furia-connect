@@ -46,6 +46,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  contactInfos  ContactInfos?
 }
 
 model VerificationToken {
@@ -78,4 +79,18 @@ model CacheIdManager {
   lastActivity DateTime? @default(now())
 
   @@id([type, userId])
+}
+
+model ContactInfos {
+  id           String   @id @default(cuid())
+  name         String?
+  email        String?
+  cpf          String?
+  mediaName    String?
+  mediaContact String?
+  createdAt    DateTime @default(now())
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }

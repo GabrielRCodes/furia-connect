@@ -481,5 +481,30 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
         nextMessageId: 'return-to-new-main'
       }
     ]
+  },
+  'contact-info-exists': {
+    id: 'contact-info-exists',
+    text: 'Você já possui informações de contato registradas ({mediaName}: {mediaContact}). Você pode alterá-las nas configurações do seu perfil.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'go-to-settings',
+        text: '⚙️ Ir para Configurações',
+        nextMessageId: 'go-to-settings'
+      },
+      {
+        id: 'return-to-main',
+        text: '🔙 Voltar ao Menu Principal',
+        nextMessageId: 'menu-after-cpf'
+      }
+    ]
+  },
+  'go-to-settings': {
+    id: 'go-to-settings',
+    text: 'Redirecionando para a página de configurações...',
+    sender: 'bot',
+    type: 'text',
+    isActive: false
   }
 }; 

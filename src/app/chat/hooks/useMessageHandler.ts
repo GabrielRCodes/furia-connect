@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Message, Option, LiveGamesNotification } from '../types';
+import { Message, Option, LiveGamesNotification, SavedUserInfo, ContactDescription } from '../types';
 import { useChat } from './useChat';
 import { formatCpf } from '../utils/formatter';
 import { BOT_RESPONSES } from '../botResponses';
+import { createContactInfos } from './createContactInfos';
+import { editContactInfos } from './editContactInfos';
+import { getContactInfos } from './getContactInfos';
 
 // Interface para armazenar informações de contato
 interface ContactInfo {
@@ -54,7 +57,7 @@ export const useMessageHandler = () => {
   // Efeito para logar sempre que as informações de contato forem alteradas
   useEffect(() => {
     if (contactInfo.channel || contactInfo.contact) {
-      console.log('Informações de Contato Atualizadas:', contactInfo);
+      // Remover log de debug
     }
   }, [contactInfo]);
 
@@ -149,23 +152,77 @@ export const useMessageHandler = () => {
         showCpf: false
       };
       
+      // Se o usuário tiver declinado fornecer o CPF, salvar a informação no banco de dados
+      if (message.id.includes('cpf-declined')) {
+        const userName = displayName;
+        const userEmail = displayEmail;
+        const userCpf = 'Não informado';
+        
+        // Salvar no banco de dados
+        createContactInfos(userName, userEmail, userCpf)
+          .then(result => {
+            // Remover log de debug
+            
+            // Verificar se houve cooldown
+            if (result.cooldown) {
+              // Mostrar mensagem de cooldown para o usuário
+              const cooldownMessage = {
+                id: `cooldown-message-${Date.now()}`,
+                text: `${result.message} Por favor, tente novamente mais tarde.`,
+                sender: 'bot',
+                type: 'text',
+                timestamp: new Date(),
+                isActive: false
+              };
+              
+              setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+              return;
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao salvar dados no banco (sem CPF):', error);
+          });
+      }
+      
       addBotMessage('show-profile-summary', undefined, summaryData);
     } else if (option.nextMessageId === 'menu-after-cpf' && message.id.includes('show-profile-summary')) {
+      // Obter os dados para salvar
+      const userName = message.customData?.userName || displayName;
+      const userEmail = message.customData?.email || displayEmail;
+      const userCpf = message.customData?.cpf || 'Não informado';
+      
       // Salvar as informações do usuário quando confirmar
       setSavedUserInfo({
-        name: message.customData?.userName || displayName,
-        email: message.customData?.email || displayEmail,
-        cpf: message.customData?.cpf || 'Não informado',
+        name: userName,
+        email: userEmail,
+        cpf: userCpf,
         timestamp: new Date()
       });
       
-      // Log para debug (pode ser removido posteriormente)
-      console.log('Informações salvas:', {
-        name: message.customData?.userName || displayName,
-        email: message.customData?.email || displayEmail,
-        cpf: message.customData?.cpf || 'Não informado',
-        timestamp: new Date()
-      });
+      // Salvar no banco de dados usando a função createContactInfos
+      createContactInfos(userName, userEmail, userCpf)
+        .then(result => {
+          // Remover log de debug
+          
+          // Verificar se houve cooldown
+          if (result.cooldown) {
+            // Mostrar mensagem de cooldown para o usuário
+            const cooldownMessage = {
+              id: `cooldown-message-${Date.now()}`,
+              text: `${result.message} Por favor, tente novamente mais tarde.`,
+              sender: 'bot',
+              type: 'text',
+              timestamp: new Date(),
+              isActive: false
+            };
+            
+            setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+            return;
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao salvar dados no banco:', error);
+        });
       
       // Continuar com o fluxo normal
       addBotMessage(option.nextMessageId);
@@ -185,7 +242,7 @@ export const useMessageHandler = () => {
       // Extraímos a parte antes do primeiro hífen
       const channelId = rawId.split('-')[0] || '';
       
-      console.log('Opção selecionada:', {rawId, channelId, option});
+      // Remover log de debug
       
       // Mapeamento para nomes amigáveis de canais
       const channelMap: Record<string, string> = {
@@ -205,65 +262,155 @@ export const useMessageHandler = () => {
         channel: channelText
       }));
       
-      // Registrar a escolha do canal para uso posterior (sem informar contato ainda)
-      const notificationInfo: LiveGamesNotification = {
-        channel: channelText,
-        contactInfo: null,
-        teams: allTeams // Usar a lista de todos os times
-      };
-      
-      setSavedNotification(notificationInfo);
-      
-      // Texto personalizado com base no canal
-      let promptText = '';
-      let inputLabelText = '';
-      let inputMode: 'text' | 'numeric' | 'tel' | 'email' = 'text';
-      
-      switch (channelText) {
-        case 'WhatsApp':
-          promptText = 'Por favor, digite seu número de WhatsApp (apenas números, incluindo DDD): 📱';
-          inputLabelText = 'Número de WhatsApp';
-          inputMode = 'tel';
-          break;
-        case 'Telegram':
-          promptText = 'Por favor, digite seu nome de usuário do Telegram (com @ no início): 📨';
-          inputLabelText = 'Usuário do Telegram';
-          break;
-        case 'Discord':
-          promptText = 'Por favor, digite seu nome de usuário do Discord: 🎮';
-          inputLabelText = 'Usuário do Discord';
-          break;
-        case 'E-mail':
-          promptText = 'Por favor, digite seu endereço de e-mail: 📧';
-          inputLabelText = 'E-mail';
-          inputMode = 'email';
-          break;
-        default:
-          promptText = 'Por favor, digite sua informação de contato:';
-          inputLabelText = 'Contato';
-      }
-      
-      // Adicionar mensagem com input personalizado
-      const customInputMessage = {
-        ...BOT_RESPONSES['ask-contact-info'],
-        text: promptText,
-        inputLabel: inputLabelText,
-        customData: {
-          inputMode: inputMode,
-          notificationChannel: channelText
+      // Verificar se o usuário já possui informações de contato registradas
+      getContactInfos().then(result => {
+        if (result.exists && result.data && result.data.mediaName && result.data.mediaContact) {
+          // Usuário já tem informações de mídia social registradas
+          const contactInfoText = BOT_RESPONSES['contact-info-exists'].text
+            .replace('{mediaName}', result.data.mediaName)
+            .replace('{mediaContact}', result.data.mediaContact);
+          
+          const contactInfoMessage = {
+            ...BOT_RESPONSES['contact-info-exists'],
+            id: `contact-info-exists-${Date.now()}`,
+            text: contactInfoText,
+            timestamp: new Date(),
+            isActive: true,
+            options: BOT_RESPONSES['contact-info-exists'].options?.map(opt => ({
+              ...opt,
+              id: `${opt.id}-${Date.now()}`
+            }))
+          };
+          
+          setMessages(prevMessages => [
+            ...prevMessages.map(msg => ({ ...msg, isActive: false })),
+            contactInfoMessage as Message
+          ]);
+        } else {
+          // Usuário não tem informações de mídia social registradas, continuar com o fluxo normal
+          // Registrar a escolha do canal para uso posterior (sem informar contato ainda)
+          const notificationInfo: LiveGamesNotification = {
+            channel: channelText,
+            contactInfo: null,
+            teams: allTeams // Usar a lista de todos os times
+          };
+          
+          setSavedNotification(notificationInfo);
+          
+          // Texto personalizado com base no canal
+          let promptText = '';
+          let inputLabelText = '';
+          let inputMode: 'text' | 'numeric' | 'tel' | 'email' = 'text';
+          
+          switch (channelText) {
+            case 'WhatsApp':
+              promptText = 'Por favor, digite seu número de WhatsApp (apenas números, incluindo DDD): 📱';
+              inputLabelText = 'Número de WhatsApp';
+              inputMode = 'tel';
+              break;
+            case 'Telegram':
+              promptText = 'Por favor, digite seu nome de usuário do Telegram (com @ no início): 📨';
+              inputLabelText = 'Usuário do Telegram';
+              break;
+            case 'Discord':
+              promptText = 'Por favor, digite seu nome de usuário do Discord: 🎮';
+              inputLabelText = 'Usuário do Discord';
+              break;
+            case 'E-mail':
+              promptText = 'Por favor, digite seu endereço de e-mail: 📧';
+              inputLabelText = 'E-mail';
+              inputMode = 'email';
+              break;
+            default:
+              promptText = 'Por favor, digite sua informação de contato:';
+              inputLabelText = 'Contato';
+          }
+          
+          // Adicionar mensagem com input personalizado
+          const customInputMessage = {
+            ...BOT_RESPONSES['ask-contact-info'],
+            text: promptText,
+            inputLabel: inputLabelText,
+            customData: {
+              inputMode: inputMode,
+              notificationChannel: channelText
+            }
+          };
+          
+          setMessages(prevMessages => [
+            ...prevMessages,
+            {
+              ...customInputMessage,
+              id: `ask-contact-info-${Date.now()}`,
+              timestamp: new Date()
+            } as Message
+          ]);
+          
+          setCurrentInputAction('submit-contact-info');
         }
-      };
-      
-      setMessages(prevMessages => [
-        ...prevMessages,
-        {
-          ...customInputMessage,
-          id: `ask-contact-info-${Date.now()}`,
-          timestamp: new Date()
-        } as Message
-      ]);
-      
-      setCurrentInputAction('submit-contact-info');
+      }).catch(error => {
+        console.error('Erro ao verificar informações de contato:', error);
+        // Em caso de erro, prosseguir com o fluxo normal
+        // Registrar a escolha do canal para uso posterior (sem informar contato ainda)
+        const notificationInfo: LiveGamesNotification = {
+          channel: channelText,
+          contactInfo: null,
+          teams: allTeams // Usar a lista de todos os times
+        };
+        
+        setSavedNotification(notificationInfo);
+        
+        // Texto personalizado com base no canal
+        let promptText = '';
+        let inputLabelText = '';
+        let inputMode: 'text' | 'numeric' | 'tel' | 'email' = 'text';
+        
+        switch (channelText) {
+          case 'WhatsApp':
+            promptText = 'Por favor, digite seu número de WhatsApp (apenas números, incluindo DDD): 📱';
+            inputLabelText = 'Número de WhatsApp';
+            inputMode = 'tel';
+            break;
+          case 'Telegram':
+            promptText = 'Por favor, digite seu nome de usuário do Telegram (com @ no início): 📨';
+            inputLabelText = 'Usuário do Telegram';
+            break;
+          case 'Discord':
+            promptText = 'Por favor, digite seu nome de usuário do Discord: 🎮';
+            inputLabelText = 'Usuário do Discord';
+            break;
+          case 'E-mail':
+            promptText = 'Por favor, digite seu endereço de e-mail: 📧';
+            inputLabelText = 'E-mail';
+            inputMode = 'email';
+            break;
+          default:
+            promptText = 'Por favor, digite sua informação de contato:';
+            inputLabelText = 'Contato';
+        }
+        
+        // Adicionar mensagem com input personalizado
+        const customInputMessage = {
+          ...BOT_RESPONSES['ask-contact-info'],
+          text: promptText,
+          inputLabel: inputLabelText,
+          customData: {
+            inputMode: inputMode,
+            notificationChannel: channelText
+          }
+        };
+        
+        setMessages(prevMessages => [
+          ...prevMessages,
+          {
+            ...customInputMessage,
+            id: `ask-contact-info-${Date.now()}`,
+            timestamp: new Date()
+          } as Message
+        ]);
+        
+        setCurrentInputAction('submit-contact-info');
+      });
     }
     // Processar seleção e deselecão de equipes
     else if (option.nextMessageId === 'team-selection-toggle') {
@@ -398,8 +545,86 @@ export const useMessageHandler = () => {
           contact: inputValue
         });
         
-        // Log para debug
-        console.log('Notificação de jogos ao vivo configurada:', notificationInfo);
+        // Atualizar as informações de contato de mídia no banco de dados
+        if (selectedNotificationChannel && inputValue) {
+          // Verificar se o usuário já possui informações de contato registradas
+          getContactInfos().then(result => {
+            if (result.exists && result.data && result.data.mediaName && result.data.mediaContact) {
+              // Usuário já tem informações de mídia social registradas
+              const contactInfoText = BOT_RESPONSES['contact-info-exists'].text
+                .replace('{mediaName}', result.data.mediaName)
+                .replace('{mediaContact}', result.data.mediaContact);
+              
+              const contactInfoMessage = {
+                ...BOT_RESPONSES['contact-info-exists'],
+                id: `contact-info-exists-${Date.now()}`,
+                text: contactInfoText,
+                timestamp: new Date(),
+                isActive: true,
+                options: BOT_RESPONSES['contact-info-exists'].options?.map(opt => ({
+                  ...opt,
+                  id: `${opt.id}-${Date.now()}`
+                }))
+              };
+              
+              setMessages(prevMessages => [
+                ...prevMessages.map(msg => ({ ...msg, isActive: false })),
+                contactInfoMessage as Message
+              ]);
+            } else {
+              // Prosseguir com a atualização
+              editContactInfos(selectedNotificationChannel, inputValue)
+                .then(result => {
+                  // Remover log de debug
+                  
+                  // Verificar se houve cooldown
+                  if (result.cooldown) {
+                    // Mostrar mensagem de cooldown para o usuário
+                    const cooldownMessage = {
+                      id: `cooldown-message-${Date.now()}`,
+                      text: `${result.message} Por favor, tente novamente mais tarde.`,
+                      sender: 'bot',
+                      type: 'text',
+                      timestamp: new Date(),
+                      isActive: false
+                    };
+                    
+                    setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+                    return;
+                  }
+                })
+                .catch(error => {
+                  console.error('Erro ao atualizar informações de contato de mídia (confirmação de equipes):', error);
+                });
+            }
+          }).catch(error => {
+            console.error('Erro ao verificar informações de contato:', error);
+            // Em caso de erro, prosseguir com a atualização normal
+            editContactInfos(selectedNotificationChannel, inputValue)
+              .then(result => {
+                // Remover log de debug
+                
+                // Verificar se houve cooldown
+                if (result.cooldown) {
+                  // Mostrar mensagem de cooldown para o usuário
+                  const cooldownMessage = {
+                    id: `cooldown-message-${Date.now()}`,
+                    text: `${result.message} Por favor, tente novamente mais tarde.`,
+                    sender: 'bot',
+                    type: 'text',
+                    timestamp: new Date(),
+                    isActive: false
+                  };
+                  
+                  setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+                  return;
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao atualizar informações de contato de mídia (confirmação de equipes):', error);
+              });
+          });
+        }
         
         // Texto simplificado sem detalhes específicos
         const confirmationText = `Inscrição confirmada com sucesso! 🎉
@@ -417,7 +642,7 @@ Fique ligado e não perca nenhuma partida! 🏆`;
       const rawId = option.id;
       const channelId = rawId.split('-')[0] || '';
       
-      console.log('Opção de canal direto selecionada:', {rawId, channelId, option});
+      // Remover log de debug
       
       // Mapeamento para nomes amigáveis de canais
       const channelMap: Record<string, string> = {
@@ -465,9 +690,6 @@ Fique ligado e não perca nenhuma partida! 🏆`;
           pendingNotificationText = `Você selecionou ${channelText} como canal de notificação. Por favor, complete seu cadastro.`;
       }
       
-      // Log para debug
-      console.log('Canal selecionado:', notificationInfo.channel);
-      
       // Solicitar o contato para o canal selecionado
       addBotMessage('ask-contact-info', pendingNotificationText, {
         notificationChannel: channelText
@@ -476,6 +698,9 @@ Fique ligado e não perca nenhuma partida! 🏆`;
     else if (option.nextMessageId === 'in-development') {
       // Para todas as opções, manter o fluxo de "em desenvolvimento"
       addBotMessage(option.nextMessageId);
+    } else if (option.nextMessageId === 'go-to-settings') {
+      // Redirecionar para a página de configurações
+      window.location.href = '/settings';
     } else {
       // Processar outros fluxos normalmente
       addBotMessage(option.nextMessageId);
@@ -556,12 +781,7 @@ Fique ligado e não perca nenhuma partida! 🏆`;
       const activeMessage = messages.find(msg => msg.isActive);
       const channelType = activeMessage?.customData?.notificationChannel || selectedNotificationChannel;
       
-      console.log('Processando contato:', {
-        channelType,
-        selectedChannel: selectedNotificationChannel,
-        customData: activeMessage?.customData,
-        inputValue
-      });
+      // Remover log de debug
       
       // Validações específicas por canal
       if (channelType === 'WhatsApp') {
@@ -608,6 +828,87 @@ Fique ligado e não perca nenhuma partida! 🏆`;
         // Salvar no estado para uso posterior
         setSavedNotification(notificationInfo);
         
+        // Atualizar as informações de contato de mídia no banco de dados
+        if (channelType && inputValue) {
+          // Verificar se o usuário já possui informações de contato registradas
+          getContactInfos().then(result => {
+            if (result.exists && result.data && result.data.mediaName && result.data.mediaContact) {
+              // Usuário já tem informações de mídia social registradas
+              const contactInfoText = BOT_RESPONSES['contact-info-exists'].text
+                .replace('{mediaName}', result.data.mediaName)
+                .replace('{mediaContact}', result.data.mediaContact);
+              
+              const contactInfoMessage = {
+                ...BOT_RESPONSES['contact-info-exists'],
+                id: `contact-info-exists-${Date.now()}`,
+                text: contactInfoText,
+                timestamp: new Date(),
+                isActive: true,
+                options: BOT_RESPONSES['contact-info-exists'].options?.map(opt => ({
+                  ...opt,
+                  id: `${opt.id}-${Date.now()}`
+                }))
+              };
+              
+              setMessages(prevMessages => [
+                ...prevMessages.map(msg => ({ ...msg, isActive: false })),
+                contactInfoMessage as Message
+              ]);
+            } else {
+              // Prosseguir com a atualização
+              editContactInfos(channelType, inputValue)
+                .then(result => {
+                  // Remover log de debug
+                  
+                  // Verificar se houve cooldown
+                  if (result.cooldown) {
+                    // Mostrar mensagem de cooldown para o usuário
+                    const cooldownMessage = {
+                      id: `cooldown-message-${Date.now()}`,
+                      text: `${result.message} Por favor, tente novamente mais tarde.`,
+                      sender: 'bot',
+                      type: 'text',
+                      timestamp: new Date(),
+                      isActive: false
+                    };
+                    
+                    setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+                    return;
+                  }
+                })
+                .catch(error => {
+                  console.error('Erro ao atualizar informações de contato de mídia (input direto):', error);
+                });
+            }
+          }).catch(error => {
+            console.error('Erro ao verificar informações de contato:', error);
+            // Em caso de erro, prosseguir com a atualização normal
+            editContactInfos(channelType, inputValue)
+              .then(result => {
+                // Remover log de debug
+                
+                // Verificar se houve cooldown
+                if (result.cooldown) {
+                  // Mostrar mensagem de cooldown para o usuário
+                  const cooldownMessage = {
+                    id: `cooldown-message-${Date.now()}`,
+                    text: `${result.message} Por favor, tente novamente mais tarde.`,
+                    sender: 'bot',
+                    type: 'text',
+                    timestamp: new Date(),
+                    isActive: false
+                  };
+                  
+                  setMessages(prevMessages => [...prevMessages, cooldownMessage as Message]);
+                  return;
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao atualizar informações de contato de mídia (input direto):', error);
+              });
+          });
+        }
+        
         // Mensagem simplificada sem detalhes específicos
         const confirmationText = `Seu contato foi registrado com sucesso! ✅
 
@@ -617,9 +918,6 @@ Você poderá alterar esta configuração a qualquer momento em seu perfil.`;
         
         // Adicionar mensagem de confirmação direta com o botão de confirmação
         addBotMessage('direct-notification-confirmed', confirmationText);
-        
-        // Log para debug de informações de contato
-        console.log('Notificação configurada:', notificationInfo);
       } else {
         // Mostrar erro e pedir novamente
         const customInputMessage = {
