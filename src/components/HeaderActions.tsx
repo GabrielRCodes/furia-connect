@@ -27,6 +27,7 @@ import {
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLocale } from '@/components/Providers';
+import { usePathname } from 'next/navigation';
 
 export function HeaderActions() {
   const { data: session, status } = useSession();
@@ -36,6 +37,7 @@ export function HeaderActions() {
   const [isPreferencesOpen, setIsPreferencesOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const t = useTranslations('HeaderActions');
+  const pathname = usePathname();
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -114,12 +116,14 @@ export function HeaderActions() {
     <>
       <div className="flex items-center space-x-3">
         {/* Botão para ir ao chat */}
-        <Button variant="outline" size="sm" asChild>
-          <Link href="#" className="flex items-center gap-1">
-            <FiMessageSquare className="h-4 w-4" />
-            <span>{t('buttons.chat')}</span>
-          </Link>
-        </Button>
+        {pathname !== "/chat" && (
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/chat" className="flex items-center gap-1">
+              <FiMessageSquare className="h-4 w-4" />
+              <span>{t('buttons.chat')}</span>
+            </Link>
+          </Button>
+        )}
 
         {/* Avatar do usuário - Clicável para abrir modal */}
         <Button 

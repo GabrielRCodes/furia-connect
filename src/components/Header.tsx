@@ -37,7 +37,7 @@ export function Header() {
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center py-2 px-4 text-sm">
         {/* Versão Desktop - Links de navegação à esquerda */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="#" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
+          <Link href="/" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
             <FiMessageCircle className="h-5 w-5 stroke-[2.5px]" aria-label={t('navigation.chat')} />
           </Link>
           <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
