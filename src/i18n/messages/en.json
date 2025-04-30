@@ -210,5 +210,60 @@
         "button": "Start chatting"
       }
     }
+  },
+  "Settings": {
+    "title": "Account Settings",
+    "description": "Manage your personal information and account preferences",
+    "name": {
+      "title": "Profile Name",
+      "description": "This is the name that will be displayed to other users on the platform",
+      "newName": "New name",
+      "placeholder": "Enter your name",
+      "hint": "Your full name or what you prefer to be called",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "noName": "No name configured",
+      "edit": "Edit",
+      "error": "Error updating name",
+      "cooldown": "You need to wait 10 minutes between changes."
+    },
+    "email": {
+      "title": "Email Address",
+      "description": "This is the email associated with your account and used for important communications",
+      "newEmail": "New email",
+      "placeholder": "Enter your email",
+      "hint": "You will need to verify the new email after the change",
+      "save": "Save changes",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "noEmail": "No email configured",
+      "edit": "Edit",
+      "error": "Error updating email",
+      "cooldown": "You need to wait 10 minutes between changes.",
+      "emailNotEditable": "Email address cannot be changed after registration."
+    },
+    "delete": {
+      "title": "Delete Account",
+      "description": "Permanently remove your account and all associated data",
+      "warning": "Important warning",
+      "warningMessage": "This action is irreversible. All your data will be permanently deleted.",
+      "instruction": "To confirm, type DELETE below:",
+      "placeholder": "Type DELETE to confirm",
+      "confirm": "Delete permanently",
+      "deleting": "Deleting...",
+      "cancel": "Cancel",
+      "explanation": "Deleting your account will permanently remove all your data and cannot be undone.",
+      "button": "Delete my account",
+      "error": "Error deleting account",
+      "cooldown": "You need to wait 10 minutes between attempts."
+    },
+    "userPreview": {
+      "title": "Profile Preview",
+      "description": "This is how your profile appears to other users",
+      "noName": "User without name",
+      "memberSince": "Member since",
+      "unknownDate": "Unknown date"
+    }
   }
 } 

@@ -210,5 +210,60 @@
         "button": "Iniciar chat"
       }
     }
+  },
+  "Settings": {
+    "title": "Configurações da conta",
+    "description": "Gerencie suas informações pessoais e preferências da conta",
+    "name": {
+      "title": "Nome de perfil",
+      "description": "Este é o nome que será exibido para outros usuários na plataforma",
+      "newName": "Novo nome",
+      "placeholder": "Digite seu nome",
+      "hint": "Seu nome completo ou como você prefere ser chamado",
+      "save": "Salvar alterações",
+      "saving": "Salvando...",
+      "cancel": "Cancelar",
+      "noName": "Sem nome configurado",
+      "edit": "Editar",
+      "error": "Erro ao atualizar nome",
+      "cooldown": "É necessário aguardar 10 minutos entre alterações."
+    },
+    "email": {
+      "title": "Endereço de email",
+      "description": "Este é o email associado à sua conta e usado para comunicações importantes",
+      "newEmail": "Novo email",
+      "placeholder": "Digite seu email",
+      "hint": "Você precisará validar o novo email após a mudança",
+      "save": "Salvar alterações",
+      "saving": "Salvando...",
+      "cancel": "Cancelar",
+      "noEmail": "Sem email configurado",
+      "edit": "Editar",
+      "error": "Erro ao atualizar email",
+      "cooldown": "É necessário aguardar 10 minutos entre alterações.",
+      "emailNotEditable": "O endereço de email não pode ser alterado após o cadastro."
+    },
+    "delete": {
+      "title": "Excluir conta",
+      "description": "Remova permanentemente sua conta e todos os dados associados a ela",
+      "warning": "Aviso importante",
+      "warningMessage": "Esta ação é irreversível. Todos os seus dados serão permanentemente excluídos.",
+      "instruction": "Para confirmar, digite DELETE abaixo:",
+      "placeholder": "Digite DELETE para confirmar",
+      "confirm": "Excluir permanentemente",
+      "deleting": "Excluindo...",
+      "cancel": "Cancelar",
+      "explanation": "Excluir sua conta removerá permanentemente todos os seus dados e não poderá ser desfeito.",
+      "button": "Excluir minha conta",
+      "error": "Erro ao deletar conta",
+      "cooldown": "É necessário aguardar 10 minutos entre tentativas."
+    },
+    "userPreview": {
+      "title": "Visualização do perfil",
+      "description": "Assim que seu perfil aparece para outros usuários",
+      "noName": "Usuário sem nome",
+      "memberSince": "Membro desde",
+      "unknownDate": "Data desconhecida"
+    }
   }
 } 

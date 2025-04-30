@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useLocale } from '@/components/Providers';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function HeaderActions() {
   const { data: session, status } = useSession();
@@ -38,10 +38,17 @@ export function HeaderActions() {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const t = useTranslations('HeaderActions');
   const pathname = usePathname();
+  const router = useRouter();
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
     await signOut({ callbackUrl: '/' });
+  };
+
+  // Função para ir para a página de configurações e fechar o modal
+  const handleGoToSettings = () => {
+    setIsPreferencesOpen(false); // Fecha o modal primeiro
+    router.push('/settings'); // Navega para a página de configurações
   };
 
   // Renderiza o estado de carregamento
@@ -179,11 +186,14 @@ export function HeaderActions() {
 
                 {/* Botões de ação da conta */}
                 <div className="flex space-x-3 mt-2">
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href="#" className="flex items-center gap-1">
-                      <FiSettings className="h-4 w-4" />
-                      <span>{t('buttons.settings')}</span>
-                    </Link>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={handleGoToSettings}
+                    className="flex items-center gap-1"
+                  >
+                    <FiSettings className="h-4 w-4" />
+                    <span>{t('buttons.settings')}</span>
                   </Button>
                   <Button 
                     variant="destructive" 
