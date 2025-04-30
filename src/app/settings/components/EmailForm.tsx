@@ -2,7 +2,6 @@
 
 import { User } from "@prisma/client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 
 interface EmailFormProps {
