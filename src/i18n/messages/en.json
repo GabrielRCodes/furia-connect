@@ -13,7 +13,7 @@
     },
     "theme": {
       "title": "Theme",
-      "description": "Switch between light, dark and system themes.",
+      "description": "Switch between light, dark, and system themes.",
       "light": "Light",
       "dark": "Dark",
       "system": "System"
@@ -24,18 +24,18 @@
       "successButton": "Success",
       "errorButton": "Error",
       "warningButton": "Warning",
-      "infoButton": "Info",
+      "infoButton": "Information",
       "customButton": "Custom",
-      "successMessage": "Operation successful!",
+      "successMessage": "Successful operation!",
       "successDescription": "The operation was completed successfully.",
       "errorMessage": "An error occurred!",
       "errorDescription": "Could not complete the operation.",
       "warningMessage": "Important warning!",
-      "warningDescription": "Please pay attention to this information.",
+      "warningDescription": "Pay attention to this information.",
       "infoMessage": "Information",
-      "infoDescription": "Here's some useful information for you.",
+      "infoDescription": "Here is some useful information for you.",
       "customMessage": "Custom toast",
-      "customDescription": "You can customize this toast however you want.",
+      "customDescription": "You can customize this toast as you wish.",
       "actionLabel": "Undo",
       "footer": "Use toasts to show important notifications to users."
     }
@@ -44,6 +44,38 @@
     "home": "Home",
     "about": "About",
     "contact": "Contact"
+  },
+  "Common": {
+    "navigation": {
+      "home": "Home",
+      "chat": "Chat",
+      "login": "Login",
+      "settings": "Settings",
+      "contact": "Contact"
+    },
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "language": {
+      "portuguese": "Português",
+      "english": "English"
+    },
+    "buttons": {
+      "connect": "Connect",
+      "chat": "Chat",
+      "settings": "Settings",
+      "disconnect": "Disconnect"
+    },
+    "preferences": {
+      "title": "Preferences",
+      "description": "Customize your experience on FURIA Connect",
+      "account": "Account",
+      "preferences": "Preferences",
+      "theme": "Theme",
+      "language": "Language"
+    }
   },
   "Header": {
     "navigation": {
@@ -56,7 +88,7 @@
     "sidebar": {
       "title": "Menu",
       "navigation": "Navigation",
-      "socialNetworks": "Social Networks"
+      "socialNetworks": "Social networks"
     }
   },
   "HeaderActions": {
@@ -67,18 +99,18 @@
     },
     "language": {
       "toggle": "Change language",
-      "portuguese": "Portuguese",
+      "portuguese": "Português",
       "english": "English"
     },
     "buttons": {
       "connect": "Connect",
       "chat": "Chat",
       "settings": "Settings",
-      "disconnect": "Disconnect" 
+      "disconnect": "Disconnect"
     },
     "preferences": {
       "title": "Preferences",
-      "description": "Customize your FURIA Connect experience",
+      "description": "Customize your experience on FURIA Connect",
       "account": "Account",
       "preferences": "Preferences",
       "theme": "Theme",
@@ -86,8 +118,8 @@
     }
   },
   "Login": {
-    "title": "Authentication",
-    "description": "Choose a login method to access your account on the platform",
+    "title": "Login to FURIA Connect",
+    "description": "Choose an authentication method to access your account on the platform",
     "google": "Continue with Google",
     "socialLogin": "Social login",
     "emailLogin": "Email login",
@@ -98,7 +130,7 @@
     "backToHome": "Back to home page",
     "footer": "FURIA Connect - Connecting the FURIA community",
     "errors": {
-      "default": "Error signing in. Please try again.",
+      "default": "Error logging in. Please try again.",
       "OAuthSignin": "Error during the authentication process.",
       "OAuthCallback": "Error during the authentication response.",
       "OAuthCreateAccount": "Error creating an account with the provider.",
@@ -106,21 +138,21 @@
       "Callback": "Error during the callback process.",
       "OAuthAccountNotLinked": "The account is already linked to another login.",
       "EmailSignin": "Error sending the login email.",
-      "CredentialsSignin": "Authentication failed. Check your credentials."
+      "CredentialsSignin": "Authentication failed. Check your data."
     }
   },
   "VerifyRequest": {
     "title": "Email Verification",
     "description": "A verification link has been sent to your email",
-    "checkInbox": "Please check your inbox and click the link we sent to complete the login process.",
-    "checkSpam": "If you can't find the email, please check your spam folder as well.",
+    "checkInbox": "Please check your inbox and click on the link sent to complete the login process.",
+    "checkSpam": "If you don't find the email, also check your spam folder.",
     "expiration": "The verification link will expire in 1 hour.",
     "backToLogin": "Back to login",
     "emailSentTo": "Email sent to:"
   },
   "Auth": {
     "title": "Authentication",
-    "description": "Authentication test with Next Auth",
+    "description": "Next Auth authentication test",
     "loading": "Loading session...",
     "notLoggedIn": "You are not logged in",
     "signIn": "Sign in",
@@ -150,76 +182,76 @@
       },
       "community": {
         "title": "FURIA Community",
-        "description": "Join discussions and connect with other fans.",
+        "description": "Participate in discussions and connect with other fans.",
         "preview": "Community chat preview"
       }
     },
     "fan": {
-      "title": "FURIA Fan Club",
-      "subtitle": "The most passionate fans in Brazil",
-      "description": "Join the FURIA family and experience incredible moments alongside other passionate fans. We are known for our energy, dedication, and loyalty at all events.",
+      "title": "FURIA Fans",
+      "subtitle": "The most passionate fanbase in Brazil",
+      "description": "Become part of the FURIA family and experience incredible moments alongside other passionate fans. We are known for our energy, dedication, and loyalty at all events.",
       "support": {
-        "title": "Fast Support",
-        "description": "Priority access to our service channels and issue resolution with FURIA's dedicated team."
+        "title": "Quick support",
+        "description": "Priority access to our service channels and doubt resolution with FURIA's dedicated team."
       },
       "community": {
-        "title": "Community Contact",
-        "description": "Join exclusive fan groups and connect with fans from all over the world to talk about anything."
+        "title": "Community contact",
+        "description": "Join exclusive groups for fans and connect with fans from around the world."
       },
-      "conclusion": "As a member of the official fan club, you'll be closer to your idols and part of this ever-growing community throughout Brazil.",
-      "button": "Join the fan club",
-      "imageAlt": "FURIA Fans at IEM Rio Major 2022"
+      "conclusion": "As a member of the official fanbase, you will be closer to your idols and be part of this ever-growing community.",
+      "button": "Join the fanbase",
+      "imageAlt": "FURIA fans at IEM Rio Major 2022"
     },
     "store": {
       "title": "FURIA Store",
-      "subtitle": "Official merchandise",
-      "description": "Find the best FURIA apparel and accessories in our official store. Each product is designed with our fans in mind, combining style, comfort, and team pride.",
+      "subtitle": "Official products",
+      "description": "Find the best FURIA products and accessories in our official store. Each product is designed with our fans in mind to ensure quality and comfort.",
       "delivery": {
-        "title": "Fast Shipping",
-        "description": "Nationwide delivery with tracking and expedited shipping options. We ship to over 20 countries."
+        "title": "Fast Delivery",
+        "description": "Delivery throughout Brazil with tracking and express shipping options. We ship to more than 20 countries."
       },
       "quality": {
         "title": "Premium Quality",
         "description": "All products are made with high-quality materials to ensure durability and comfort."
       },
-      "conclusion": "Our store offers exclusive collections and limited editions throughout the year. FURIA members get early access and special discounts.",
+      "conclusion": "Our store offers exclusive collections and limited editions throughout the year. FURIA members have early access and special discounts.",
       "button": "Visit the store",
-      "imageAlt": "FURIA Official Logo"
+      "imageAlt": "Official FURIA Logo"
     },
     "contact": {
       "title": "Contact Us",
       "subtitle": "Connect with us and be part of our story",
-      "heading": "How can we assist you today?",
-      "description": "FURIA Connect offers a unified platform for all your questions, support needs, and community interactions. Talk directly with our team and join the conversation.",
+      "heading": "How can we help you today?",
+      "description": "FURIA Connect offers a unified platform for all your questions, support needs, and community interactions.",
       "cards": {
         "community": {
           "title": "Community Connection",
           "description": "Connect with other fans, discuss strategies, and share your passion for FURIA."
         },
         "support": {
-          "title": "Real-time Connection",
+          "title": "Real-Time Connection",
           "description": "Interact directly and in real-time with our team for a more dynamic experience."
         },
         "questions": {
-          "title": "General Inquiries",
-          "description": "Ask questions about teams, players, upcoming events, or partnership opportunities."
+          "title": "General Questions",
+          "description": "Ask questions about teams, players, future events, or partnership opportunities."
         }
       },
       "cta": {
-        "prompt": "Ready to connect with FURIA?",
-        "button": "Start chatting"
+        "prompt": "Want to connect with FURIA?",
+        "button": "Start chat"
       }
     }
   },
   "Settings": {
-    "title": "Account Settings",
+    "title": "Account settings",
     "description": "Manage your personal information and account preferences",
     "name": {
-      "title": "Profile Name",
+      "title": "Profile name",
       "description": "This is the name that will be displayed to other users on the platform",
       "newName": "New name",
       "placeholder": "Enter your name",
-      "hint": "Your full name or what you prefer to be called",
+      "hint": "Your full name or how you prefer to be called",
       "save": "Save changes",
       "saving": "Saving...",
       "cancel": "Cancel",
@@ -229,11 +261,11 @@
       "cooldown": "You need to wait 10 minutes between changes."
     },
     "email": {
-      "title": "Email Address",
+      "title": "Email address",
       "description": "This is the email associated with your account and used for important communications",
       "newEmail": "New email",
       "placeholder": "Enter your email",
-      "hint": "You will need to verify the new email after the change",
+      "hint": "You will need to validate the new email after the change",
       "save": "Save changes",
       "saving": "Saving...",
       "cancel": "Cancel",
@@ -243,8 +275,31 @@
       "cooldown": "You need to wait 10 minutes between changes.",
       "emailNotEditable": "Email address cannot be changed after registration."
     },
+    "contact": {
+      "title": "Contact Information",
+      "description": "Add or update your contact information",
+      "name": "Name",
+      "namePlaceholder": "Your full name",
+      "email": "E-mail",
+      "emailPlaceholder": "your@email.com",
+      "cpf": "CPF",
+      "cpfPlaceholder": "Numbers only",
+      "socialMedia": "Social Media",
+      "socialMediaPlaceholder": "Select a social media",
+      "socialContact": "Social Media Contact",
+      "whatsappPlaceholder": "+55 (11) 99999-9999",
+      "telegramPlaceholder": "@username",
+      "discordPlaceholder": "discordusername",
+      "emailContactPlaceholder": "your@email.com",
+      "save": "Save Information",
+      "saving": "Saving...",
+      "success": "Information saved successfully",
+      "error": "Error saving information",
+      "validation_error": "Please correct the validation errors",
+      "cooldown": "You need to wait 1 day between updates"
+    },
     "delete": {
-      "title": "Delete Account",
+      "title": "Delete account",
       "description": "Permanently remove your account and all associated data",
       "warning": "Important warning",
       "warningMessage": "This action is irreversible. All your data will be permanently deleted.",
@@ -259,7 +314,7 @@
       "cooldown": "You need to wait 10 minutes between attempts."
     },
     "userPreview": {
-      "title": "Profile Preview",
+      "title": "Profile preview",
       "description": "This is how your profile appears to other users",
       "noName": "User without name",
       "memberSince": "Member since",

@@ -45,6 +45,48 @@ export default function SettingsLoading() {
             </CardContent>
           </Card>
           
+          {/* Card de Contato */}
+          <Card className="shadow-md">
+            <CardHeader className="pb-0">
+              <div className="flex items-center gap-2">
+                <div className="h-5 w-5 bg-muted rounded-full"></div>
+                <div className="h-6 w-44 bg-muted rounded"></div>
+              </div>
+              <div className="h-4 w-64 bg-muted rounded mt-2"></div>
+            </CardHeader>
+            <CardContent className="space-y-4 mt-4">
+              {/* Skeleton dos inputs */}
+              <div className="space-y-2">
+                <div className="h-4 w-16 bg-muted rounded"></div>
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="h-4 w-16 bg-muted rounded"></div>
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="h-4 w-16 bg-muted rounded"></div>
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="h-4 w-32 bg-muted rounded"></div>
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="h-4 w-44 bg-muted rounded"></div>
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+              
+              <div className="pt-2">
+                <div className="h-10 w-full bg-muted rounded"></div>
+              </div>
+            </CardContent>
+          </Card>
+          
           {/* Card de Deletar Conta */}
           <Card className="shadow-md border border-red-100 dark:border-red-900/30">
             <CardHeader className="pb-0">

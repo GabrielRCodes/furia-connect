@@ -29,7 +29,7 @@ export function UserPreview({ user }: UserPreviewProps) {
     t('unknownDate')
 
   return (
-    <Card className="sticky top-6 shadow-md">
+    <Card className="sticky top-22 shadow-md">
       <CardHeader className="pb-2">
         <CardTitle className="text-xl">{t('title')}</CardTitle>
         <CardDescription>

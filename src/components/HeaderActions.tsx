@@ -192,8 +192,8 @@ export function HeaderActions() {
                     onClick={handleGoToSettings}
                     className="flex items-center gap-1"
                   >
-                    <FiSettings className="h-4 w-4" />
-                    <span>{t('buttons.settings')}</span>
+                      <FiSettings className="h-4 w-4" />
+                      <span>{t('buttons.settings')}</span>
                   </Button>
                   <Button 
                     variant="destructive" 

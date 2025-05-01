@@ -2,9 +2,10 @@
 
 import { NameForm } from "./components/NameForm";
 import { EmailForm } from "./components/EmailForm";
+import { ContactForm } from "./components/ContactForm";
 import { DeleteAccountForm } from "./components/DeleteAccountForm";
 import { UserPreview } from "./components/UserPreview";
-import { getUserData } from "./actions";
+import { getUserData, getContactData } from "./actions";
 import { getTranslations } from "next-intl/server";
 
 export default async function SettingsPage() {
@@ -12,6 +13,12 @@ export default async function SettingsPage() {
   const userData = await getUserData();
   // Obter traduções
   const t = await getTranslations('Settings');
+  // Obter informações de contato
+  const contactData = await getContactData();
+
+  // Determina se o componente ContactForm deve ser exibido
+  // Ele será exibido se o usuário estiver logado (exists = true)
+  const showContactForm = !!userData;
 
   return (
     <div className="w-full max-w-7xl mx-auto py-6 px-4 xl:px-0">
@@ -30,6 +37,15 @@ export default async function SettingsPage() {
           
           {/* Card de Email */}
           <EmailForm user={userData} />
+          
+          {/* Card de Contato - mostrado apenas se o usuário estiver logado */}
+          {showContactForm && (
+            <ContactForm 
+              user={userData} 
+              contactInfo={contactData.data}
+              exists={showContactForm}
+            />
+          )}
           
           {/* Card de Deletar Conta */}
           <DeleteAccountForm />
