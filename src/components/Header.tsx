@@ -8,7 +8,14 @@ import {
   FiYoutube, 
   FiTwitter, 
   FiInstagram,
-  FiMenu
+  FiMenu,
+  FiInfo,
+  FiUsers,
+  FiShoppingBag,
+  FiMail,
+  FiChevronRight,
+  FiExternalLink,
+  FiHome
 } from 'react-icons/fi';
 import { SiTwitch, SiDiscord } from 'react-icons/si';
 import { useEffect, useState } from 'react';
@@ -20,7 +27,10 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetFooter,
+  SheetDescription
 } from '@/components/ui/sheet'
+import { Separator } from '@/components/ui/separator';
 
 // Custom hook for scroll handling
 function useScrollToSection(pathname: string, searchParams: URLSearchParams) {
@@ -118,7 +128,7 @@ export function Header() {
 
         {/* Versão Mobile - Apenas ícone de chat à esquerda */}
         <div className="md:hidden">
-          <Link href="#" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
+          <Link href="/" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
             <FiMessageCircle className="h-5 w-5 stroke-[2.5px]" aria-label={t('navigation.chat')} />
           </Link>
         </div>
@@ -155,108 +165,108 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="overflow-y-auto">
-              <SheetHeader>
-                <SheetTitle>{t('sidebar.title')}</SheetTitle>
+              <SheetHeader className="pb-4">
+                <SheetTitle className="text-xl">{t('sidebar.title')}</SheetTitle>
+                <SheetDescription>
+                  FURIA Connect
+                </SheetDescription>
               </SheetHeader>
               
-              <div className="py-6 space-y-6">
-                {/* Links de navegação na sidebar */}
-                <div className="space-y-3">
-                  <h3 className="text-sm font-medium">{t('sidebar.navigation')}</h3>
-                  <div className="flex flex-col space-y-2">
-                    <Link 
-                      href="#" 
-                      className="flex items-center p-2 rounded-md hover:bg-muted transition-colors"
-                      onClick={() => setOpen(false)}
-                    >
-                      <FiMessageCircle className="h-4 w-4 mr-2" />
-                      {t('navigation.chat')}
-                    </Link>
-                    <a 
-                      href="#about" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                      onClick={(e) => handleNavigation('about', e)}
-                    >
-                      {t('navigation.about')}
-                    </a>
-                    <a 
-                      href="#fans" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                      onClick={(e) => handleNavigation('fans', e)}
-                    >
-                      {t('navigation.fans')}
-                    </a>
-                    <a 
-                      href="#shop" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                      onClick={(e) => handleNavigation('shop', e)}
-                    >
-                      {t('navigation.shop')}
-                    </a>
-                    <a 
-                      href="#contact" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
-                      onClick={(e) => handleNavigation('contact', e)}
-                    >
-                      {t('navigation.contact')}
-                    </a>
+              <Separator className="my-4" />
+              
+              <div className="py-2 space-y-6">
+                {/* Botão de voltar para o início */}
+                <Link 
+                  href="/" 
+                  className="flex items-center justify-between p-3 rounded-md hover:bg-muted border border-border transition-colors group"
+                  onClick={() => setOpen(false)}
+                >
+                  <div className="flex items-center gap-3">
+                    <FiHome className="h-5 w-5 text-primary" />
+                    <span className="font-medium">Voltar para o início</span>
                   </div>
-                </div>
+                  <FiChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                </Link>
                 
-                {/* Redes sociais na sidebar */}
-                <div className="space-y-3">
-                  <h3 className="text-sm font-medium">{t('sidebar.socialNetworks')}</h3>
-                  <div className="grid grid-cols-3 gap-2">
+                {/* Redes sociais na sidebar - estilo card melhorado */}
+                <div className="space-y-4">
+                  <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+                    {t('sidebar.socialNetworks')}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
                     <a 
-                      href="about:blank" 
+                      href="https://github.com/GabrielRCodes" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <FiGithub className="h-5 w-5" aria-label="Github" />
+                      <FiGithub className="h-6 w-6 mb-2" aria-label="Github" />
+                      <span className="text-xs">GitHub</span>
                     </a>
                     <a 
-                      href="about:blank" 
+                      href="https://www.twitch.tv/furiatv" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <SiTwitch className="h-5 w-5" aria-label="Twitch" />
+                      <SiTwitch className="h-6 w-6 mb-2" aria-label="Twitch" />
+                      <span className="text-xs">Twitch</span>
                     </a>
                     <a 
-                      href="about:blank" 
+                      href="https://www.youtube.com/@FURIAgg" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <FiYoutube className="h-5 w-5" aria-label="Youtube" />
+                      <FiYoutube className="h-6 w-6 mb-2" aria-label="Youtube" />
+                      <span className="text-xs">YouTube</span>
                     </a>
                     <a 
-                      href="about:blank" 
+                      href="https://x.com/FURIA" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <FiTwitter className="h-5 w-5" aria-label="Twitter" />
+                      <FiTwitter className="h-6 w-6 mb-2" aria-label="Twitter" />
+                      <span className="text-xs">Twitter</span>
                     </a>
                     <a 
-                      href="about:blank" 
+                      href="https://www.instagram.com/furiagg/" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <FiInstagram className="h-5 w-5" aria-label="Instagram" />
+                      <FiInstagram className="h-6 w-6 mb-2" aria-label="Instagram" />
+                      <span className="text-xs">Instagram</span>
                     </a>
                     <a 
-                      href="about:blank" 
+                      href="https://discord.gg/48wchPa8NY" 
                       target="_blank" 
                       rel="noreferrer"
-                      className="flex items-center justify-center p-2 rounded-md hover:bg-muted transition-colors"
+                      className="flex flex-col items-center justify-center p-4 rounded-md hover:bg-muted border border-border transition-colors"
                     >
-                      <SiDiscord className="h-5 w-5" aria-label="Discord" />
+                      <SiDiscord className="h-6 w-6 mb-2" aria-label="Discord" />
+                      <span className="text-xs">Discord</span>
                     </a>
                   </div>
                 </div>
+
+                <Separator />
+                
+                {/* Link para a loja */}
+                <a 
+                  href="https://furia.gg" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="flex items-center justify-between p-3 rounded-md hover:bg-muted border border-primary/50 transition-colors group"
+                  onClick={() => setOpen(false)}
+                >
+                  <div className="flex items-center gap-3">
+                    <FiShoppingBag className="h-5 w-5 text-primary" />
+                    <span className="font-medium">Visite nossa loja</span>
+                  </div>
+                  <FiExternalLink className="h-4 w-4 text-primary" />
+                </a>
               </div>
             </SheetContent>
           </Sheet>
