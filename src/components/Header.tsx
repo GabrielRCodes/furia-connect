@@ -9,10 +9,7 @@ import {
   FiTwitter, 
   FiInstagram,
   FiMenu,
-  FiInfo,
-  FiUsers,
   FiShoppingBag,
-  FiMail,
   FiChevronRight,
   FiExternalLink,
   FiHome
@@ -27,7 +24,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetFooter,
   SheetDescription
 } from '@/components/ui/sheet'
 import { Separator } from '@/components/ui/separator';
