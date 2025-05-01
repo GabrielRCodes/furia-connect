@@ -212,8 +212,8 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       },
       {
         id: 'support',
-        text: 'Falar com o suporte 🤝',
-        nextMessageId: 'in-development'
+        text: 'Visitar a central 🌐',
+        nextMessageId: 'visit-support-center'
       }
     ]
   },
@@ -229,6 +229,31 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
         nextMessageId: 'return-to-new-main'
       }
     ]
+  },
+  'visit-support-center': {
+    id: 'visit-support-center',
+    text: 'A Central FURIA reúne todas as informações sobre a organização, nossos times, eventos e muito mais. Visite para ficar por dentro de todas as novidades! 🏆',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'go-to-central',
+        text: '🌐 Visitar a Central FURIA',
+        nextMessageId: 'external-central-link'
+      },
+      {
+        id: 'return-to-main',
+        text: '↩️ Voltar ao menu principal',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
+  },
+  'external-central-link': {
+    id: 'external-central-link',
+    text: 'Redirecionando para a Central FURIA...',
+    sender: 'bot',
+    type: 'text',
+    isActive: false
   },
   'return-to-new-main': {
     id: 'return-to-new-main',
@@ -273,8 +298,8 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       },
       {
         id: 'support',
-        text: 'Falar com o suporte 🤝',
-        nextMessageId: 'in-development'
+        text: 'Visitar a central 🌐',
+        nextMessageId: 'visit-support-center'
       }
     ]
   },
@@ -321,8 +346,8 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       },
       {
         id: 'support',
-        text: 'Falar com o suporte 🤝',
-        nextMessageId: 'in-development'
+        text: 'Visitar a central 🌐',
+        nextMessageId: 'visit-support-center'
       }
     ]
   },

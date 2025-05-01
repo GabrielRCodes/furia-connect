@@ -96,6 +96,17 @@ export const useMessageHandler = () => {
         : { userName };
       
       addBotMessage('ask-email', emailText, customData);
+    } else if (option.nextMessageId === 'external-central-link') {
+      // Abrir link externo para Central FURIA
+      window.open('https://furia-central.0r1.org', '_blank');
+      
+      // Adicionar mensagem de redirecionamento
+      addBotMessage(option.nextMessageId);
+      
+      // Após um breve delay, retornar ao menu principal
+      setTimeout(() => {
+        addBotMessage('return-to-new-main');
+      }, 2000);
     } else if (option.nextMessageId === 'confirm-email') {
       // Verificar se o e-mail da sessão existe
       if (session?.user?.email) {
