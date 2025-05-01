@@ -11,7 +11,7 @@ export default async function LoginLayout({
 
   // Se o usuário estiver autenticado, redirecionar para a página inicial
   if (session) {
-    redirect('/');
+    redirect('/chat');
   }
 
   // Se não estiver autenticado, mostrar o conteúdo da página de login

@@ -6,8 +6,8 @@ import { Inter } from "next/font/google";
 import { Providers } from '@/components/Providers';
 import { AuthProvider } from '@/components/AuthProvider';
 import { Toaster } from "@/components/ui/sonner";
-import "./globals.css";
 import { HeaderWrapper } from '@/components/HeaderWrapper';
+import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",

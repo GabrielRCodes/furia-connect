@@ -9,7 +9,7 @@ export default function StoreSection() {
   const t = useTranslations('Home.store');
   
   return (
-    <section className="container mx-auto px-4 max-w-7xl">
+    <section id="shop" className="container mx-auto px-4 max-w-7xl">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl md:text-4xl font-bold">{t('title')}</h2>
         <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">

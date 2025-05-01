@@ -9,10 +9,10 @@ export default function HeroSection() {
   const t = useTranslations('Home.hero');
   
   return (
-    <section className="container mx-auto px-4 max-w-7xl">
+    <section id="about" className="container mx-auto px-4 max-w-7xl">
       <div className="flex flex-col lg:flex-row gap-5">
         {/* Imagem vertical da esquerda (clicável) */}
-        <Link href="/chat" className="lg:w-1/3 relative min-h-[480px] rounded-xl overflow-hidden bg-accent/20 block group">
+        <Link href="/login" className="lg:w-1/3 relative min-h-[480px] rounded-xl overflow-hidden bg-accent/20 block group">
           <Image 
             src="https://res.cloudinary.com/dnuayiowd/image/upload/v1745690690/Torcida-FURIA-IEM-Rio-Major-2022_xkft48.jpg" 
             alt="FURIA Connect"
@@ -38,7 +38,7 @@ export default function HeroSection() {
         {/* Bento grid à direita */}
         <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Item 1: Tire suas dúvidas */}
-          <Link href="/chat" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
+          <Link href="/login" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <FiHelpCircle className="h-5 w-5 text-primary" />
             </div>
@@ -50,7 +50,7 @@ export default function HeroSection() {
           </Link>
           
           {/* Item 2: Entre em contato com a FURIA */}
-          <Link href="/chat" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
+          <Link href="/login" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <FiMessageCircle className="h-5 w-5 text-primary" />
             </div>
@@ -62,7 +62,7 @@ export default function HeroSection() {
           </Link>
           
           {/* Item 3: Calendário de jogos */}
-          <Link href="/chat" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
+          <Link href="/login" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <FiCalendar className="h-5 w-5 text-primary" />
             </div>
@@ -74,7 +74,7 @@ export default function HeroSection() {
           </Link>
           
           {/* Item 4: Criadores de conteúdo */}
-          <Link href="/chat" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
+          <Link href="/login" className="bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <FiVideo className="h-5 w-5 text-primary" />
             </div>
@@ -86,7 +86,7 @@ export default function HeroSection() {
           </Link>
           
           {/* Item 5: Comunidade */}
-          <Link href="/chat" className="md:col-span-2 bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
+          <Link href="/login" className="md:col-span-2 bg-card hover:bg-accent/10 transition-colors rounded-xl p-5 flex flex-col h-[170px] border border-border group relative">
             <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-3">
               <FiUsers className="h-5 w-5 text-primary" />
             </div>

@@ -14,7 +14,7 @@ export default function ContactSection() {
   const t = useTranslations('Home.contact');
   
   return (
-    <section className="container mx-auto px-4 max-w-7xl">
+    <section id="contact" className="container mx-auto px-4 max-w-7xl">
       <div className="flex items-center justify-center mb-10">
         <div className="text-center max-w-3xl">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">{t('title')}</h2>
@@ -69,7 +69,7 @@ export default function ContactSection() {
           <div className="flex flex-col items-center justify-center w-full max-w-md">
             <p className="text-lg font-medium mb-6">{t('cta.prompt')}</p>
             <Button size="lg" className="group w-full md:w-auto px-8" asChild>
-              <Link href="/chat">
+              <Link href="/login">
                 {t('cta.button')}
                 <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>

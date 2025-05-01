@@ -12,7 +12,7 @@ export default async function VerifyRequestLayout({
   
   // Se estiver logado, redirecionar para a página inicial
   if (session?.user) {
-    redirect('/');
+    redirect('/chat');
   }
   
   // Verificar se existe o cookie de verificação
@@ -21,7 +21,7 @@ export default async function VerifyRequestLayout({
   
   // Se não existir o cookie, redirecionar para a página inicial
   if (!verificationEmail) {
-    redirect('/');
+    redirect('/login');
   }
   
   // Se passou pelas verificações, mostrar a página

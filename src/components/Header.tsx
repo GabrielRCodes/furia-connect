@@ -11,8 +11,8 @@ import {
   FiMenu
 } from 'react-icons/fi';
 import { SiTwitch, SiDiscord } from 'react-icons/si';
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import {
   Sheet,
@@ -22,10 +22,56 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 
+// Custom hook for scroll handling
+function useScrollToSection(pathname: string, searchParams: URLSearchParams) {
+  useEffect(() => {
+    // Only run in browser environment
+    if (typeof window !== 'undefined' && pathname === '/') {
+      const goTo = searchParams.get('goTo');
+      if (goTo) {
+        // Use requestAnimationFrame to ensure DOM is ready
+        window.requestAnimationFrame(() => {
+          const element = document.getElementById(goTo);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            
+            // Remove the goTo parameter from URL without refreshing
+            const newUrl = window.location.pathname;
+            window.history.replaceState({}, '', newUrl);
+          }
+        });
+      }
+    }
+  }, [pathname, searchParams]);
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const t = useTranslations('Header');
+  
+  // Use the custom scroll hook
+  useScrollToSection(pathname, searchParams);
+  
+  // Scroll handler for navigation links
+  const handleNavigation = (sectionId: string, e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    
+    if (pathname === '/') {
+      // On homepage, scroll to section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // On other pages, redirect to home with query parameter
+      router.push(`/?goTo=${sectionId}`);
+    }
+    // Close mobile menu if open
+    if (open) setOpen(false);
+  };
   
   // Não renderizar o header na página de login
   if (pathname === '/login' || pathname === '/verify-request') {
@@ -33,25 +79,41 @@ export function Header() {
   }
 
   return (
-    <div className="w-full border-b border-border">
+    <div className={`w-full border-b border-border`}>
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center py-2 px-4 text-sm">
         {/* Versão Desktop - Links de navegação à esquerda */}
         <nav className="hidden md:flex items-center space-x-6">
           <Link href="/" className="flex items-center text-foreground/70 hover:text-primary transition-colors">
             <FiMessageCircle className="h-5 w-5 stroke-[2.5px]" aria-label={t('navigation.chat')} />
           </Link>
-          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
+          <a 
+            href="#about" 
+            className="text-foreground/70 hover:text-primary transition-colors cursor-pointer" 
+            onClick={(e) => handleNavigation('about', e)}
+          >
             {t('navigation.about')}
-          </Link>
-          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
+          </a>
+          <a 
+            href="#fans" 
+            className="text-foreground/70 hover:text-primary transition-colors cursor-pointer" 
+            onClick={(e) => handleNavigation('fans', e)}
+          >
             {t('navigation.fans')}
-          </Link>
-          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
+          </a>
+          <a 
+            href="#shop" 
+            className="text-foreground/70 hover:text-primary transition-colors cursor-pointer" 
+            onClick={(e) => handleNavigation('shop', e)}
+          >
             {t('navigation.shop')}
-          </Link>
-          <Link href="#" className="text-foreground/70 hover:text-primary transition-colors">
+          </a>
+          <a 
+            href="#contact" 
+            className="text-foreground/70 hover:text-primary transition-colors cursor-pointer" 
+            onClick={(e) => handleNavigation('contact', e)}
+          >
             {t('navigation.contact')}
-          </Link>
+          </a>
         </nav>
 
         {/* Versão Mobile - Apenas ícone de chat à esquerda */}
@@ -63,22 +125,22 @@ export function Header() {
         
         {/* Versão Desktop - Redes sociais à direita */}
         <div className="hidden md:flex items-center space-x-4">
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://github.com/GabrielRCodes" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiGithub className="h-4 w-4" aria-label="Github" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://www.twitch.tv/furiatv" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <SiTwitch className="h-4 w-4" aria-label="Twitch" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://www.youtube.com/@FURIAgg" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiYoutube className="h-4 w-4" aria-label="Youtube" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://x.com/FURIA" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiTwitter className="h-4 w-4" aria-label="Twitter" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://www.instagram.com/furiagg/" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <FiInstagram className="h-4 w-4" aria-label="Instagram" />
           </a>
-          <a href="about:blank" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
+          <a href="https://discord.gg/48wchPa8NY" target="_blank" rel="noreferrer" className="text-foreground/70 hover:text-primary transition-colors">
             <SiDiscord className="h-4 w-4" aria-label="Discord" />
           </a>
         </div>
@@ -110,34 +172,34 @@ export function Header() {
                       <FiMessageCircle className="h-4 w-4 mr-2" />
                       {t('navigation.chat')}
                     </Link>
-                    <Link 
-                      href="#" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors"
-                      onClick={() => setOpen(false)}
+                    <a 
+                      href="#about" 
+                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                      onClick={(e) => handleNavigation('about', e)}
                     >
                       {t('navigation.about')}
-                    </Link>
-                    <Link 
-                      href="#" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors"
-                      onClick={() => setOpen(false)}
+                    </a>
+                    <a 
+                      href="#fans" 
+                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                      onClick={(e) => handleNavigation('fans', e)}
                     >
                       {t('navigation.fans')}
-                    </Link>
-                    <Link 
-                      href="#" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors"
-                      onClick={() => setOpen(false)}
+                    </a>
+                    <a 
+                      href="#shop" 
+                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                      onClick={(e) => handleNavigation('shop', e)}
                     >
                       {t('navigation.shop')}
-                    </Link>
-                    <Link 
-                      href="#" 
-                      className="p-2 rounded-md hover:bg-muted transition-colors"
-                      onClick={() => setOpen(false)}
+                    </a>
+                    <a 
+                      href="#contact" 
+                      className="p-2 rounded-md hover:bg-muted transition-colors cursor-pointer"
+                      onClick={(e) => handleNavigation('contact', e)}
                     >
                       {t('navigation.contact')}
-                    </Link>
+                    </a>
                   </div>
                 </div>
                 

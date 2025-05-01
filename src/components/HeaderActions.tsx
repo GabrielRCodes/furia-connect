@@ -125,7 +125,7 @@ export function HeaderActions() {
         {/* Botão para ir ao chat */}
         {pathname !== "/chat" && (
           <Button variant="outline" size="sm" asChild>
-            <Link href="/chat" className="flex items-center gap-1">
+            <Link href="/login" className="flex items-center gap-1">
               <FiMessageSquare className="h-4 w-4" />
               <span>{t('buttons.chat')}</span>
             </Link>
