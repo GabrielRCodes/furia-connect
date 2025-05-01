@@ -17,8 +17,8 @@ export default async function SettingsPage() {
   const contactData = await getContactData();
 
   // Determina se o componente ContactForm deve ser exibido
-  // Ele será exibido se o usuário estiver logado (exists = true)
-  const showContactForm = !!userData;
+  // Ele será exibido somente se já existirem informações de contato para o usuário
+  const showContactForm = contactData.exists;
 
   return (
     <div className="w-full max-w-7xl mx-auto py-6 px-4 xl:px-0">
@@ -38,7 +38,7 @@ export default async function SettingsPage() {
           {/* Card de Email */}
           <EmailForm user={userData} />
           
-          {/* Card de Contato - mostrado apenas se o usuário estiver logado */}
+          {/* Card de Contato - mostrado apenas se existirem informações de contato */}
           {showContactForm && (
             <ContactForm 
               user={userData} 
