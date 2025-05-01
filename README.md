@@ -1,31 +1,50 @@
 # FURIA CONNECT
 
-Uma aplicação web moderna de chat em tempo real desenvolvida para a comunidade FURIA.
+Um protótipo de plataforma de assistência virtual desenvolvido como parte de um desafio técnico para a equipe FURIA.
 
 ## 📋 Sobre
 
-FURIA CONNECT é uma plataforma que permite comunicação em tempo real entre usuários, criada utilizando tecnologias modernas como Next.js, React e Tailwind CSS, integrada com os componentes shadcn/ui para uma interface elegante e responsiva.
+FURIA CONNECT é uma plataforma que permite aos usuários tirar dúvidas através de um assistente virtual inteligente. Desenvolvido com tecnologias modernas como Next.js, React e Tailwind CSS.
 
 ### ✨ Funcionalidades principais
 
-- Chat em tempo real
+- Assistente virtual para responder dúvidas
 - Autenticação social com Google
+- Autenticação por email com link mágico (Resend)
+- Sistema de cooldown para limitar requisições
 - Suporte a múltiplos idiomas (Português e Inglês)
 - Tema claro/escuro
-- Interface moderna e responsiva
+- Interface moderna e responsiva com design mobile-first
 - Sistema de notificações via toasts
+- SEO otimizado para mecanismos de busca
 
 ## 🛠️ Tecnologias
 
-- [Next.js](https://nextjs.org/) - Framework React com renderização híbrida
-- [React](https://reactjs.org/) - Biblioteca JavaScript para construção de interfaces
-- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS utilitário
-- [shadcn/ui](https://ui.shadcn.com/) - Componentes de UI reutilizáveis
-- [next-intl](https://next-intl-docs.vercel.app/) - Internacionalização
-- [next-themes](https://github.com/pacocoursey/next-themes) - Suporte a temas
-- [Sonner](https://sonner.emilkowal.ski/) - Sistema de toasts
-- [Prisma](https://www.prisma.io/) - ORM para acesso ao banco de dados
-- [NextAuth.js](https://next-auth.js.org/) - Sistema de autenticação
+- **[Next.js](https://nextjs.org/)** - Framework React com App Router para roteamento eficiente e renderização híbrida
+- **[React](https://reactjs.org/)** - Biblioteca JavaScript para construção de interfaces
+- **[Tailwind CSS](https://tailwindcss.com/)** - Framework CSS utilitário para estilização rápida e consistente
+- **[shadcn/ui](https://ui.shadcn.com/)** - Componentes de UI acessíveis e reutilizáveis
+- **[next-intl](https://next-intl-docs.vercel.app/)** - Solução de internacionalização robusta com suporte a rotas
+- **[next-themes](https://github.com/pacocoursey/next-themes)** - Gerenciamento de temas adaptativo (claro/escuro)
+- **[Sonner](https://sonner.emilkowal.ski/)** - Sistema de toasts para notificações não-intrusivas
+- **[Prisma](https://www.prisma.io/)** - ORM para acesso ao banco de dados com tipagem segura
+- **[NextAuth.js](https://next-auth.js.org/)** - Sistema de autenticação flexível e seguro
+- **[Zod](https://zod.dev/)** - Validação de esquemas com TypeScript para garantir integridade de dados
+- **[React Email](https://react.email/)** - Criação de emails responsivos em React
+- **[Resend](https://resend.com/)** - API para envio de emails transacionais
+
+## 🔒 Sistema de Cooldown
+
+Um aspecto importante da segurança da aplicação é o sistema de cooldown implementado para prevenir abusos. Este sistema funciona através de:
+
+**Cache de IPs e IDs**:
+   - Para cada requisição, o sistema armazena temporariamente o IP do solicitante e o ID do usuário (caso esteja autenticado)
+   - Utilizamos uma combinação de Redis para ambientes de produção e cache em memória para desenvolvimento
+
+**Lógica de Cooldown**:
+   - Usuários não autenticados têm um cooldown maior (limitando requisições por IP)
+   - Usuários autenticados têm limites mais generosos (baseados no ID)
+   - A verificação ocorre em middleware para interromper requisições antes mesmo de chegarem ao handler
 
 ## 🚀 Instalação
 
@@ -52,7 +71,7 @@ yarn install
 
 3. Configure as variáveis de ambiente:
 ```bash
-cp .env.local
+cp .env.example .env.local
 ```
 
 4. Configure e inicialize o Prisma:
@@ -127,39 +146,74 @@ EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
    - Inicie um novo projeto com um banco de dados MySQL
    - Após a criação, vá para a seção de variáveis de ambiente do projeto
    - Copie a URL de conexão completa (formato: `mysql://user:password@host:port/database`)
-   - A Railway fornece automaticamente todas as informações necessárias para a conexão, incluindo usuário, senha, host e porta na variável `DATABASE_URL`
 
-## Autenticação
+4. **RESEND_API_KEY**:
+   - Crie uma conta em [Resend](https://resend.com)
+   - Navegue até a seção de API Keys no painel
+   - Crie uma nova API Key e copie o valor (formato: `re_123456789...`)
+   - Configure também um domínio verificado para EMAIL_FROM ou use um domínio temporário fornecido pelo Resend
+
+## 🔐 Autenticação
 
 ### Provedores suportados
 
 - **Google**: Login social com contas Google
 - **Email (Resend)**: Login via link mágico enviado por email
 
-### Configuração do Resend
+O sistema de autenticação foi implementado com NextAuth.js, proporcionando alta segurança e flexibilidade. A implementação inclui:
 
-Para configurar o login via email com Resend:
-
-1. Crie uma conta em [Resend](https://resend.com)
-2. Obtenha sua API key no painel
-3. Verifique seu domínio ou use um domínio temporário fornecido pelo Resend
-4. Configure as seguintes variáveis de ambiente:
-
-```env
-# Resend API
-RESEND_API_KEY="re_123456789" # Sua chave API do Resend
-EMAIL_FROM="noreply@seudominio.com" # Domínio verificado no Resend
-```
-
-O template de email de verificação já está configurado com um design moderno que segue a identidade visual do FURIA Connect.
+- Sessões protegidas com JWT
+- Páginas de autenticação personalizadas
+- Template de email responsivo para links mágicos traduzidos
 
 ## 🌐 Internacionalização
 
-O projeto suporta múltiplos idiomas. Os arquivos de tradução estão localizados em:
+O projeto suporta múltiplos idiomas utilizando next-intl:
+
+- As traduções são carregadas dinamicamente com base na seleção do usuário
+- A preferência de idioma é armazenada em um cookie persistente
+- Mensagens de tradução são organizadas por namespaces para melhor manutenção
+
+Os arquivos de tradução estão localizados em:
 
 ```
 src/i18n/messages/
 ```
+
+## 🎨 Temas
+
+O sistema de temas utiliza next-themes para:
+
+- Detectar automaticamente a preferência do sistema
+- Permitir alternância manual entre temas claro e escuro
+- Persistir a preferência do usuário entre sessões
+- Evitar flash de tema incorreto durante o carregamento
+
+## 🔍 SEO
+
+O projeto implementa práticas avançadas de SEO:
+
+- Open Graph e tags Twitter Card para compartilhamento em redes sociais
+- Sitemap XML gerado automaticamente
+- Estrutura de dados semântica
+- Cabeçalhos HTTP adequados para indexação
+- Rotas amigáveis para mecanismos de busca
+
+## 🚧 Futuras Atualizações
+
+### Funcionalidades planejadas
+
+- **Implementação de sistema de disparos de anúncios usando contatos no banco de dados**
+  
+  Este módulo não foi completamente finalizado pois exigiria integração e verificação com diversas plataformas de redes sociais, o que demandaria um tempo considerável para pesquisa, implementação e testes. A estrutura base foi preparada no banco de dados para futura implementação.
+
+- **Expansão do assistente virtual**
+  
+  Adicionar mais capacidades de resposta ao assistente e integração com uma base de conhecimento mais ampla.
+
+- **Análise de métricas de atendimento**
+  
+  Implementação de dashboard para visualização de métricas de utilização e eficácia do assistente.
 
 ## 📝 Licença
 
