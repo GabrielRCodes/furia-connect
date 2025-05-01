@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { maskEmail, maskCpf } from '../utils/maskingUtils';
+import { useTranslations } from 'next-intl';
 
 interface ProfileSummaryProps {
   userName: string;
@@ -21,36 +22,38 @@ const ProfileSummary: React.FC<ProfileSummaryProps> = ({
   onToggleEmail,
   onToggleCpf
 }) => {
+  const t = useTranslations('Chat.profileSummary');
+  
   return (
     <div className="mt-4 bg-background/80 p-3 rounded-md">
       <div className="space-y-3">
         <div>
-          <span className="text-xs text-muted-foreground">Nome:</span>
+          <span className="text-xs text-muted-foreground">{t('name')}</span>
           <p className="font-medium">{userName}</p>
         </div>
         
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">E-mail:</span>
+            <span className="text-xs text-muted-foreground">{t('email')}</span>
             <Button
               variant="ghost"
               size="sm"
               className="text-xs h-6 px-2"
               onClick={onToggleEmail}
             >
-              {showEmail ? 'Esconder' : 'Mostrar'}
+              {showEmail ? t('hide') : t('show')}
             </Button>
           </div>
           <p className="font-mono">
             {email 
               ? (showEmail ? email : maskEmail(email))
-              : 'Não informado'}
+              : t('notProvided')}
           </p>
         </div>
         
         <div>
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">CPF:</span>
+            <span className="text-xs text-muted-foreground">{t('cpf')}</span>
             {cpf && (
               <Button
                 variant="ghost"
@@ -58,14 +61,14 @@ const ProfileSummary: React.FC<ProfileSummaryProps> = ({
                 className="text-xs h-6 px-2"
                 onClick={onToggleCpf}
               >
-                {showCpf ? 'Esconder' : 'Mostrar'}
+                {showCpf ? t('hide') : t('show')}
               </Button>
             )}
           </div>
           <p className="font-mono">
             {cpf 
               ? (showCpf ? cpf : maskCpf(cpf))
-              : 'Não informado'}
+              : t('notProvided')}
           </p>
         </div>
       </div>

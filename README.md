@@ -215,6 +215,12 @@ O projeto implementa práticas avançadas de SEO:
   
   Implementação de dashboard para visualização de métricas de utilização e eficácia do assistente.
 
+- **Criptografia de dados sensíveis**
+  
+  Implementar sistema de criptografia para armazenamento seguro de dados pessoais sensíveis como CPF, e-mail e números de telefone. Os dados seriam armazenados de forma criptografada no banco de dados e descriptografados apenas no momento do envio de notificações ou quando necessário, garantindo maior segurança e conformidade com regulamentações de proteção de dados.
+
+**Observação importante:** Todas estas funcionalidades planejadas, incluindo a criptografia de dados sensíveis, seriam implementadas caso o projeto avançasse para uma fase de produção completa. Como este é um protótipo desenvolvido para demonstração de conceito, estas características não foram implementadas, priorizando-se a entrega rápida das funcionalidades principais para avaliação. Em um ambiente de produção real, a implementação dessas medidas de segurança e expansões seria considerada essencial e prioritária.
+
 ## 📝 Licença
 
 Este projeto está sob a licença [MIT](LICENSE).

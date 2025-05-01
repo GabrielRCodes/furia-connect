@@ -320,5 +320,48 @@
       "memberSince": "Member since",
       "unknownDate": "Unknown date"
     }
+  },
+  "Chat": {
+    "header": {
+      "assistantTitle": "Virtual Assistant"
+    },
+    "input": {
+      "placeholder": "Enter your response",
+      "sendButton": "Send"
+    },
+    "footer": {
+      "automatedChat": "FURIA Connect automated chat - Use the buttons above to navigate"
+    },
+    "messageBubble": {
+      "welcome": {
+        "greeting": "Hello! Welcome to FURIA Connect chat! Here you can get information about our team, players, upcoming events, and much more. To continue, you need to accept our terms of use.",
+        "terms": "The terms can be found at:"
+      },
+      "toggleEmail": {
+        "show": "Show email",
+        "hide": "Hide email"
+      },
+      "toggleCpf": {
+        "show": "Show CPF",
+        "hide": "Hide CPF"
+      }
+    },
+    "profileSummary": {
+      "name": "Name:",
+      "email": "Email:",
+      "cpf": "CPF:",
+      "show": "Show",
+      "hide": "Hide",
+      "notProvided": "Not provided"
+    },
+    "optionsButtons": {
+      "selected": "Selected"
+    },
+    "resetDialog": {
+      "title": "Restart conversation?",
+      "description": "You are trying to interact with a previous message. Would you like to restart the conversation from the beginning?",
+      "cancel": "Cancel",
+      "restart": "Restart conversation"
+    }
   }
 } 

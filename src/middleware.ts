@@ -2,36 +2,49 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { locales, type Locale } from './config';
 
-// Define middleware para next-intl que vai processar todos os requests
+// Define middleware to process all requests for next-intl
 export default async function middleware(request: NextRequest) {
-  // Obter locale do cookie
+  // Get locale from cookie
   const localeCookie = request.cookies.get('NEXT_LOCALE');
-  // console.log(`Middleware - Cookie NEXT_LOCALE: ${localeCookie?.value || 'não encontrado'}`);
+  // console.log(`Middleware - Cookie NEXT_LOCALE: ${localeCookie?.value || 'not found'}`);
   
-  // Validar se o valor do cookie é um locale válido
+  // Validate if the cookie value is a valid locale
   const isValidLocale = (value: string | undefined): value is Locale => 
     !!value && locales.includes(value as Locale);
   
-  // Usar locale do cookie ou pt-BR como padrão
+  // Use locale from cookie or pt-BR as default
   const locale = localeCookie && isValidLocale(localeCookie.value)
     ? localeCookie.value 
     : 'pt-BR';
 
-  // Definir o locale no cabeçalho para o next-intl
+  // Check if we need to redirect for chat routes
+  if (request.nextUrl.pathname === '/chat') {
+    // If locale is English, redirect to English chat
+    if (locale === 'en') {
+      return NextResponse.redirect(new URL('/chat/en', request.url));
+    }
+  } else if (request.nextUrl.pathname === '/chat/en') {
+    // If locale is Portuguese and user is on English chat page, redirect to Portuguese chat
+    if (locale === 'pt-BR') {
+      return NextResponse.redirect(new URL('/chat', request.url));
+    }
+  }
+
+  // Set locale in header for next-intl
   const response = NextResponse.next();
   
-  // Adicionar o locale como cabeçalho
+  // Add locale as header
   response.headers.set('x-next-intl-locale', locale);
-  // console.log(`Middleware - Cabeçalho definido: x-next-intl-locale = ${locale}`);
+  // console.log(`Middleware - Header set: x-next-intl-locale = ${locale}`);
   
-  // Se não tiver cookie, definir pt-BR como padrão
+  // If no cookie, set pt-BR as default
   if (!localeCookie) {
-    // console.log('Middleware - Definindo cookie padrão pt-BR');
+    // console.log('Middleware - Setting default cookie pt-BR');
     response.cookies.set({
       name: 'NEXT_LOCALE',
       value: 'pt-BR',
       path: '/',
-      maxAge: 31536000, // 1 ano
+      maxAge: 31536000, // 1 year
       sameSite: 'strict'
     });
   }
@@ -40,6 +53,6 @@ export default async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Aplicar middleware a todas as rotas exceto as especificadas
+  // Apply middleware to all routes except those specified
   matcher: ['/((?!api|_next|.*\\..*).*)']
 }; 

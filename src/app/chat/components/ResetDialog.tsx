@@ -8,6 +8,7 @@ import {
   DialogTitle
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { useTranslations } from 'next-intl';
 
 interface ResetDialogProps {
   isOpen: boolean;
@@ -20,21 +21,23 @@ const ResetDialog: React.FC<ResetDialogProps> = ({
   onClose,
   onReset
 }) => {
+  const t = useTranslations('Chat.resetDialog');
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Reiniciar conversa?</DialogTitle>
+          <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>
-            Você está tentando interagir com uma mensagem anterior. Deseja reiniciar a conversa do início?
+            {t('description')}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex flex-row justify-end gap-2 sm:justify-end">
           <Button variant="outline" onClick={onClose}>
-            Cancelar
+            {t('cancel')}
           </Button>
           <Button onClick={onReset} variant="default">
-            Reiniciar conversa
+            {t('restart')}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Option, Message } from '../types';
+import { useTranslations } from 'next-intl';
 
 interface OptionsButtonsProps {
   options: Option[];
@@ -17,6 +18,8 @@ const OptionsButtons: React.FC<OptionsButtonsProps> = ({
   onOptionSelect,
   message
 }) => {
+  const t = useTranslations('Chat');
+  
   return (
     <div className="mt-3 space-y-2">
       {options.map((option) => (
@@ -30,7 +33,7 @@ const OptionsButtons: React.FC<OptionsButtonsProps> = ({
             <div className="flex items-center space-x-2">
               <span className="text-base">{option.text.replace(' ✓', '')}</span>
               {option.text.includes('✓') && (
-                <span className="text-sm text-primary">Selecionado</span>
+                <span className="text-sm text-primary">{t('optionsButtons.selected')}</span>
               )}
             </div>
             <div className={`relative w-12 h-6 rounded-full p-1 transition-colors duration-300 ease-in-out ${option.text.includes('✓') ? 'bg-primary' : 'bg-muted-foreground/30'}`}>

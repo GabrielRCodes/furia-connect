@@ -7,6 +7,7 @@ import { formatTime } from '../utils/formatter';
 import OptionsButtons from './OptionsButtons';
 import InputForm from './InputForm';
 import ProfileSummary from './ProfileSummary';
+import { useTranslations } from 'next-intl';
 
 interface MessageBubbleProps {
   message: Message;
@@ -29,6 +30,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
   onInputChange,
   onInputSubmit
 }) => {
+  const t = useTranslations('Chat');
+  
   return (
     <div className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
       <div className="flex items-start max-w-[80%]">
@@ -61,9 +64,9 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
           >
             {message.id.includes('welcome') ? (
               <div>
-                <p>Olá! Boas-vindas ao chat da FURIA Connect! Aqui você pode obter informações sobre nosso time, jogadores, próximos eventos e muito mais. Para continuar, você precisa aceitar nossos termos de uso.</p>
+                <p>{t('messageBubble.welcome.greeting')}</p>
                 <p className="mt-2">
-                  Os termos podem ser encontrados em:{' '}
+                  {t('messageBubble.welcome.terms')}{' '}
                   <a 
                     href="https://terms.furia.gg" 
                     target="_blank" 
@@ -88,12 +91,12 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
                     showCpf={!!message.customData?.showCpf}
                     onToggleEmail={() => onOptionSelect({
                       id: `toggle-email-${message.id}`,
-                      text: message.customData?.showEmail ? 'Esconder e-mail' : 'Mostrar e-mail',
+                      text: message.customData?.showEmail ? t('messageBubble.toggleEmail.hide') : t('messageBubble.toggleEmail.show'),
                       nextMessageId: ''
                     }, message)}
                     onToggleCpf={() => onOptionSelect({
                       id: `toggle-cpf-${message.id}`,
-                      text: message.customData?.showCpf ? 'Esconder CPF' : 'Mostrar CPF',
+                      text: message.customData?.showCpf ? t('messageBubble.toggleCpf.hide') : t('messageBubble.toggleCpf.show'),
                       nextMessageId: ''
                     }, message)}
                   />
@@ -116,11 +119,11 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({
                       className="text-xs"
                       onClick={() => onOptionSelect({
                         id: `toggle-email-${message.id}`,
-                        text: message.customData?.showEmail ? 'Esconder e-mail' : 'Mostrar e-mail',
+                        text: message.customData?.showEmail ? t('messageBubble.toggleEmail.hide') : t('messageBubble.toggleEmail.show'),
                         nextMessageId: ''
                       }, message)}
                     >
-                      {message.customData?.showEmail ? 'Esconder e-mail' : 'Mostrar e-mail'}
+                      {message.customData?.showEmail ? t('messageBubble.toggleEmail.hide') : t('messageBubble.toggleEmail.show')}
                     </Button>
                     
                     {message.customData?.showEmail && (

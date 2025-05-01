@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTranslations } from 'next-intl';
 
 interface InputFormProps {
   inputValue: string;
@@ -12,17 +13,20 @@ interface InputFormProps {
 
 const InputForm: React.FC<InputFormProps> = ({
   inputValue,
-  placeholderText = "Digite sua resposta",
+  placeholderText,
   inputMode = 'text',
   onInputChange,
   onSubmit
 }) => {
+  const t = useTranslations('Chat');
+  const defaultPlaceholder = t('input.placeholder');
+
   return (
     <form onSubmit={onSubmit} className="mt-3">
       <div className="flex flex-col space-y-2">
         <Input
           type={inputMode === 'email' ? 'email' : 'text'}
-          placeholder={placeholderText}
+          placeholder={placeholderText || defaultPlaceholder}
           value={inputValue}
           onChange={onInputChange}
           className="bg-background"
@@ -30,7 +34,7 @@ const InputForm: React.FC<InputFormProps> = ({
           inputMode={inputMode}
         />
         <Button type="submit" disabled={!inputValue.trim()}>
-          Enviar
+          {t('input.sendButton')}
         </Button>
       </div>
     </form>
