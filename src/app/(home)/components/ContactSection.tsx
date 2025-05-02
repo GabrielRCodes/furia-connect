@@ -9,10 +9,13 @@ import {
   FiUsers, 
   FiHelpCircle} from 'react-icons/fi';
 import { MessageSquare, Clock } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 export default function ContactSection() {
-  const t = useTranslations('Home.contact');
   
+  const t = useTranslations('Home.contact');
+  const { status } = useSession();
+
   return (
     <section id="contact" className="container mx-auto px-4 max-w-7xl">
       <div className="flex items-center justify-center mb-10">
@@ -69,7 +72,7 @@ export default function ContactSection() {
           <div className="flex flex-col items-center justify-center w-full max-w-md">
             <p className="text-lg font-medium mb-6">{t('cta.prompt')}</p>
             <Button size="lg" className="group w-full md:w-auto px-8" asChild>
-              <Link href="/login">
+              <Link href={status === "authenticated" ? "/chat" : "/login"}>
                 {t('cta.button')}
                 <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>

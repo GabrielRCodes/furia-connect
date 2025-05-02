@@ -5,8 +5,12 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FiArrowRight, FiUsers, FiHeadphones, FiMessageSquare } from 'react-icons/fi';
 import { useTranslations } from 'next-intl';
+import { useSession } from 'next-auth/react';
 
 export default function FanSection() {
+
+  const { status } = useSession();
+
   const t = useTranslations('Home.fan');
   
   return (
@@ -54,7 +58,7 @@ export default function FanSection() {
             
             <div className="pt-4">
               <Button size="lg" className="group w-full md:w-auto" asChild>
-                <Link href="/login">
+                <Link href={status === "authenticated" ? "/chat" : "/login"}>
                   {t('button')}
                   <FiArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>

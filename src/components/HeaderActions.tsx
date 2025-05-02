@@ -123,9 +123,9 @@ export function HeaderActions() {
     <>
       <div className="flex items-center space-x-3">
         {/* Botão para ir ao chat */}
-        {pathname !== "/chat" && (
+        {pathname !== "/chat" && pathname !== "/chat/en" && (
           <Button variant="outline" size="sm" asChild>
-            <Link href={pathname === "/settings" || pathname === "/chat" || pathname === "/chat/en" ? "/chat" : "/login"} className="flex items-center gap-1">
+            <Link href={status === "authenticated" ? "/chat" : "/login"} className="flex items-center gap-1">
               <FiMessageSquare className="h-4 w-4" />
               <span>{t('buttons.chat')}</span>
             </Link>
