@@ -15,7 +15,6 @@ FURIA CONNECT é uma plataforma que permite aos usuários tirar dúvidas atravé
 - Suporte a múltiplos idiomas (Português e Inglês)
 - Tema claro/escuro
 - Interface moderna e responsiva com design mobile-first
-- Sistema de notificações via toasts
 - SEO otimizado para mecanismos de busca
 
 ## 🛠️ Tecnologias
