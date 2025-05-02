@@ -16,6 +16,7 @@ export const authOptions = {
   pages: {
     signIn: '/login',
     verifyRequest: '/verify-request',
+    error: '/login',
   },
   providers: [
     Google({
