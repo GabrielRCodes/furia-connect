@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label"
 import { useTranslations } from "next-intl"
 import { Loader2 } from "lucide-react"
 import { FiTrash2, FiAlertTriangle, FiClock } from "react-icons/fi"
-import { useRouter } from 'next/navigation'
 
 // Componente para o botão de exclusão com estado de loading interno
 function DeleteButton({ isDisabled }: { isDisabled: boolean }) {
@@ -47,7 +46,6 @@ export function DeleteAccountForm() {
   const [message, setMessage] = useState("")
   const [isCooldown, setIsCooldown] = useState(false)
   const [isDeleteButtonLoading, setIsDeleteButtonLoading] = useState(false)
-  const router = useRouter()
 
   // Efeito para limpar a mensagem de erro após 5 segundos
   useEffect(() => {
@@ -67,7 +65,7 @@ export function DeleteAccountForm() {
     try {
       const result = await deleteUserAccount(formData)
 
-      router.replace('/')
+      window.location.href = "/"
       
       // Se retornou um resultado, é porque houve um erro (senão teria redirecionado)
       if (result) {
