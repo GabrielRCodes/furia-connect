@@ -47,8 +47,10 @@ model User {
   permissionLevel Int           @default(1000)
   points          Int           @default(0)
   accounts        Account[]
+  ChatMessage     ChatMessage[]
   contactInfos    ContactInfos?
   sessions        Session[]
+  ShareLink       ShareLink[]
 }
 
 model VerificationToken {
@@ -57,12 +59,6 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-}
-
-model Message {
-  id        String   @id @default(cuid())
-  content   String   @db.Text
-  createdAt DateTime @default(now())
 }
 
 model CacheIPManager {
@@ -93,6 +89,28 @@ model ContactInfos {
   createdAt    DateTime @default(now())
   userId       String   @unique
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ShareLink {
+  id        String    @id
+  userId    String
+  targetUrl String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+  User      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model ChatMessage {
+  id        String   @id
+  content   String   @db.Text
+  userId    String
+  type      String   @default("text")
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
