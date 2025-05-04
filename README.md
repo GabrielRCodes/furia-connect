@@ -2,6 +2,10 @@
 
 Um protótipo de plataforma de assistência virtual desenvolvido como parte de um desafio técnico para a equipe FURIA.
 
+## 🚀 Deploy
+
+Acesse a versão em produção: [https://furia-connect.0r1.org](https://furia-connect.0r1.org)
+
 ## 📋 Sobre
 
 FURIA CONNECT é uma plataforma que permite aos usuários tirar dúvidas através de um assistente virtual inteligente. Desenvolvido com tecnologias modernas como Next.js, React e Tailwind CSS.
