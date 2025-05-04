@@ -47,11 +47,12 @@ model User {
   permissionLevel Int            @default(1000)
   points          Int            @default(0)
   accounts        Account[]
+  sessions        Session[]
   ChatMessage     ChatMessage[]
   contactInfos    ContactInfos?
   PersonalInfos   PersonalInfos?
-  sessions        Session[]
   ShareLink       ShareLink[]
+  clips           Clip[]
 }
 
 model VerificationToken {
@@ -131,6 +132,16 @@ model PersonalInfos {
   createdAt DateTime @default(now())
   userId    String   @unique
   User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Clip {
+  id        String   @id @default(cuid())
+  userId    String
+  clipUrl   String   @db.Text
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }

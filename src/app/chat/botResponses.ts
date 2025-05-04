@@ -183,7 +183,7 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'clip-championship',
         text: 'Campeonato de clipadores 🎬',
-        nextMessageId: 'in-development'
+        nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
@@ -219,13 +219,13 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
   },
   'in-development': {
     id: 'in-development',
-    text: 'Esta funcionalidade está em desenvolvimento! 🚧 Em breve você poderá acessar essa área. Fique ligado para novidades! ✨',
+    text: 'Funcionalidade em desenvolvimento... 🚧\nEsta área ainda está sendo construída. Em breve você poderá desfrutar de novos recursos aqui!',
     sender: 'bot',
     type: 'options',
     options: [
       {
-        id: 'understand',
-        text: 'Entendi, vou aguardar 👍',
+        id: 'return-to-main',
+        text: '↩️ Voltar ao menu principal',
         nextMessageId: 'return-to-new-main'
       }
     ]
@@ -269,7 +269,7 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'clipper-championship',
         text: 'Campeonato de clipadores 🎬',
-        nextMessageId: 'in-development'
+        nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
@@ -531,5 +531,164 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
     sender: 'bot',
     type: 'text',
     isActive: false
+  },
+  // Nova mensagem para o Campeonato de Clipadores
+  'clip-championship-info': {
+    id: 'clip-championship-info',
+    text: '🚨#FURIAClips - Temporada 1 já tá valendo! 🎬🔥\nR$20 MIL em premiação pros melhores clipes! 💰\n\nCrie conteúdo, poste nas redes sociais com as hashtags obrigatórias (veja as regras) e participe da competição feita para todos que amam a FURIA!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'clip-championship-rules',
+        text: 'Ver regras 📋',
+        nextMessageId: 'clip-championship-rules-info'
+      },
+      {
+        id: 'clip-championship-register',
+        text: 'Cadastrar clipes 📤',
+        nextMessageId: 'clip-championship-register-input'
+      },
+      {
+        id: 'clip-championship-my-clips',
+        text: 'Ver meus clipes 🎞️',
+        nextMessageId: 'clip-championship-my-clips-list'
+      },
+      {
+        id: 'clip-championship-enable-notifications',
+        text: 'Ativar notificações 🔔',
+        nextMessageId: 'clip-championship-enable-notifications-confirm'
+      },
+      {
+        id: 'clip-championship-disable-notifications',
+        text: 'Desativar notificações 🔕',
+        nextMessageId: 'clip-championship-disable-notifications-confirm'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Voltar para o menu principal ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
+  },
+  // Nova mensagem para exibir o link das regras
+  'clip-championship-rules-info': {
+    id: 'clip-championship-rules-info',
+    text: 'Você pode acessar as regras completas do campeonato de clipadores através do link abaixo:',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'go-to-rules',
+        text: 'Acessar regras 🔗',
+        nextMessageId: 'clip-championship-rules-external'
+      },
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-rules-external': {
+    id: 'clip-championship-rules-external',
+    text: 'Redirecionando para as regras do campeonato...',
+    sender: 'bot',
+    type: 'text',
+    isActive: false
+  },
+  // Novas mensagens para o fluxo de clipes
+  'clip-championship-register-input': {
+    id: 'clip-championship-register-input',
+    text: 'Por favor, cole abaixo o link do seu clipe. Lembre-se de que o link deve ser de um clipe publicado nas redes sociais com as hashtags obrigatórias:',
+    sender: 'bot',
+    type: 'input',
+    showInput: true,
+    inputLabel: 'Link do seu clipe',
+    inputAction: 'submit-clip-link'
+  },
+  'clip-championship-register-success': {
+    id: 'clip-championship-register-success',
+    text: 'Seu clipe foi registrado com sucesso! Nossa equipe irá analisar e aprovar em breve. ✅\n\nVocê poderá enviar outro clipe em 10 minutos.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-register-cooldown': {
+    id: 'clip-championship-register-cooldown',
+    text: 'Você precisa aguardar 10 minutos entre o envio de cada clipe. Tente novamente mais tarde!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-my-clips-list': {
+    id: 'clip-championship-my-clips-list',
+    text: 'Aqui estão os seus clipes cadastrados:',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-no-clips': {
+    id: 'clip-championship-no-clips',
+    text: 'Você ainda não cadastrou nenhum clipe. Participe agora enviando seus melhores momentos!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'clip-championship-register',
+        text: 'Cadastrar clipes 📤',
+        nextMessageId: 'clip-championship-register-input'
+      },
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  // Novas mensagens para ativação/desativação de notificações de clipes
+  'clip-championship-enable-notifications-confirm': {
+    id: 'clip-championship-enable-notifications-confirm',
+    text: 'As notificações do campeonato de clipadores foram ativadas com sucesso! 🔔\n\nVocê receberá avisos sobre novidades, prazos e atualizações do campeonato.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-disable-notifications-confirm': {
+    id: 'clip-championship-disable-notifications-confirm',
+    text: 'As notificações do campeonato de clipadores foram desativadas. 🔕\n\nVocê não receberá mais avisos sobre novidades, prazos e atualizações do campeonato.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Voltar para o menu de clipadores 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
   }
 }; 

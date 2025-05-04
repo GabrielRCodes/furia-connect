@@ -183,7 +183,7 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'clip-championship',
         text: 'Clip Championship 🎬',
-        nextMessageId: 'in-development'
+        nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
@@ -219,13 +219,13 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
   },
   'in-development': {
     id: 'in-development',
-    text: 'This feature is under development! 🚧 Soon you will be able to access this area. Stay tuned for updates! ✨',
+    text: 'Feature under development... 🚧\nThis area is still being built. Soon you will be able to enjoy new features here!',
     sender: 'bot',
     type: 'options',
     options: [
       {
-        id: 'understand',
-        text: 'Understood, I will wait 👍',
+        id: 'return-to-main',
+        text: '↩️ Back to main menu',
         nextMessageId: 'return-to-new-main'
       }
     ]
@@ -269,7 +269,7 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'clipper-championship',
         text: 'Clip Championship 🎬',
-        nextMessageId: 'in-development'
+        nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
@@ -531,5 +531,164 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
     sender: 'bot',
     type: 'text',
     isActive: false
+  },
+  // New message for Clip Championship
+  'clip-championship-info': {
+    id: 'clip-championship-info',
+    text: '🚨#FURIAClips - Season 1 is on! 🎬🔥\nR$20,000 in prizes for the best clips! 💰\n\nCreate content, post on social media with the required hashtags (see rules) and participate in the competition made for everyone who loves FURIA!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'clip-championship-rules',
+        text: 'View rules 📋',
+        nextMessageId: 'clip-championship-rules-info'
+      },
+      {
+        id: 'clip-championship-register',
+        text: 'Register clips 📤',
+        nextMessageId: 'clip-championship-register-input'
+      },
+      {
+        id: 'clip-championship-my-clips',
+        text: 'View my clips 🎞️',
+        nextMessageId: 'clip-championship-my-clips-list'
+      },
+      {
+        id: 'clip-championship-enable-notifications',
+        text: 'Enable notifications 🔔',
+        nextMessageId: 'clip-championship-enable-notifications-confirm'
+      },
+      {
+        id: 'clip-championship-disable-notifications',
+        text: 'Disable notifications 🔕',
+        nextMessageId: 'clip-championship-disable-notifications-confirm'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
+  },
+  // New message to display the rules link
+  'clip-championship-rules-info': {
+    id: 'clip-championship-rules-info',
+    text: 'You can access the complete rules for the clip championship through the link below:',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'go-to-rules',
+        text: 'Access rules 🔗',
+        nextMessageId: 'clip-championship-rules-external'
+      },
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-rules-external': {
+    id: 'clip-championship-rules-external',
+    text: 'Redirecting to championship rules...',
+    sender: 'bot',
+    type: 'text',
+    isActive: false
+  },
+  // New messages for clips flow
+  'clip-championship-register-input': {
+    id: 'clip-championship-register-input',
+    text: 'Please paste your clip link below. Remember that the link must be from a clip published on social media with the required hashtags:',
+    sender: 'bot',
+    type: 'input',
+    showInput: true,
+    inputLabel: 'Your clip link',
+    inputAction: 'submit-clip-link'
+  },
+  'clip-championship-register-success': {
+    id: 'clip-championship-register-success',
+    text: 'Your clip has been successfully registered! Our team will review and approve it soon. ✅\n\nYou can send another clip in 10 minutes.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-register-cooldown': {
+    id: 'clip-championship-register-cooldown',
+    text: 'You need to wait 10 minutes between submitting each clip. Please try again later!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-my-clips-list': {
+    id: 'clip-championship-my-clips-list',
+    text: 'Here are your registered clips:',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-no-clips': {
+    id: 'clip-championship-no-clips',
+    text: 'You haven\'t registered any clips yet. Participate now by submitting your best moments!',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'clip-championship-register',
+        text: 'Register clips 📤',
+        nextMessageId: 'clip-championship-register-input'
+      },
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  // New messages for enabling/disabling clip championship notifications
+  'clip-championship-enable-notifications-confirm': {
+    id: 'clip-championship-enable-notifications-confirm',
+    text: 'Clip championship notifications have been successfully enabled! 🔔\n\nYou will receive alerts about news, deadlines, and updates for the championship.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  'clip-championship-disable-notifications-confirm': {
+    id: 'clip-championship-disable-notifications-confirm',
+    text: 'Clip championship notifications have been disabled. 🔕\n\nYou will no longer receive alerts about news, deadlines, and updates for the championship.',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      }
+    ]
   }
 }; 

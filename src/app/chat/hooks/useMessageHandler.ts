@@ -7,6 +7,8 @@ import { BOT_RESPONSES } from '../botResponses';
 import { createContactInfos } from './createContactInfos';
 import { editContactInfos } from './editContactInfos';
 import { getContactInfos } from './getContactInfos';
+import { createClip } from './createClip';
+import { getClips } from './getClips';
 
 // Interface para armazenar informações de contato
 interface ContactInfo {
@@ -106,6 +108,17 @@ export const useMessageHandler = () => {
       // Após um breve delay, retornar ao menu principal
       setTimeout(() => {
         addBotMessage('return-to-new-main');
+      }, 2000);
+    } else if (option.nextMessageId === 'clip-championship-rules-external') {
+      // Abrir link externo para as regras do campeonato
+      window.open('https://drive.google.com/file/d/1OH-KNwy8tataSKF1xUha0tOnfpOZvIap/view?usp=sharing', '_blank');
+      
+      // Adicionar mensagem de redirecionamento
+      addBotMessage(option.nextMessageId);
+      
+      // Após um breve delay, retornar ao menu de clipadores
+      setTimeout(() => {
+        addBotMessage('clip-championship-info');
       }, 2000);
     } else if (option.nextMessageId === 'confirm-email') {
       // Verificar se o e-mail da sessão existe
@@ -706,6 +719,97 @@ Fique ligado e não perca nenhuma partida! 🏆`;
         notificationChannel: channelText
       });
     }
+    else if (option.nextMessageId === 'clip-championship-my-clips-list') {
+      // Buscar os clipes do usuário
+      getClips()
+        .then(result => {
+          if (result.success) {
+            if (result.empty) {
+              // Não há clipes, mostrar mensagem vazia
+              addBotMessage('clip-championship-no-clips');
+            } else {
+              // Há clipes, montar a lista dinâmica
+              const clips = result.clips || [];
+              
+              // Criar opções dinâmicas para cada clipe
+              const clipOptions = clips.map(clip => ({
+                id: `clip-${clip.id}`,
+                text: clip.clipUrl,
+                nextMessageId: 'clip-external-link'
+              }));
+              
+              // Adicionar a opção de voltar
+              clipOptions.push({
+                id: 'back-to-clip-championship',
+                text: 'Voltar para o menu de clipadores 🎬',
+                nextMessageId: 'clip-championship-info'
+              });
+              
+              // Criar mensagem com a lista de clipes
+              const clipsListMessage = {
+                ...BOT_RESPONSES['clip-championship-my-clips-list'],
+                options: clipOptions
+              };
+              
+              setMessages(prevMessages => [
+                ...prevMessages,
+                {
+                  ...clipsListMessage,
+                  id: `clips-list-${Date.now()}`,
+                  timestamp: new Date()
+                } as Message
+              ]);
+            }
+          } else {
+            // Erro ao buscar os clipes
+            const errorMessage = {
+              id: `error-message-${Date.now()}`,
+              text: result.message,
+              sender: 'bot',
+              type: 'text',
+              timestamp: new Date(),
+              isActive: false
+            };
+            
+            setMessages(prevMessages => [...prevMessages, errorMessage as Message]);
+            
+            // Após um breve delay, voltar para o menu de clipadores
+            setTimeout(() => {
+              addBotMessage('clip-championship-info');
+            }, 2000);
+          }
+        })
+        .catch(error => {
+          console.error('Erro ao buscar clipes:', error);
+          
+          // Mostrar mensagem de erro genérico
+          const errorMessage = {
+            id: `error-message-${Date.now()}`,
+            text: 'Ocorreu um erro ao buscar seus clipes. Por favor, tente novamente mais tarde.',
+            sender: 'bot',
+            type: 'text',
+            timestamp: new Date(),
+            isActive: false
+          };
+          
+          setMessages(prevMessages => [...prevMessages, errorMessage as Message]);
+          
+          // Após um breve delay, voltar para o menu de clipadores
+          setTimeout(() => {
+            addBotMessage('clip-championship-info');
+          }, 2000);
+        });
+    }
+    else if (option.nextMessageId === 'clip-external-link') {
+      
+      // Usar o texto completo como URL (não truncado)
+      const clipUrl = option.text;
+      
+      // Abrir o link em uma nova aba
+      window.open(clipUrl, '_blank');
+      
+      // Permanecer na mesma tela após abrir o link
+    }
     else if (option.nextMessageId === 'in-development') {
       // Para todas as opções, manter o fluxo de "em desenvolvimento"
       addBotMessage(option.nextMessageId);
@@ -782,6 +886,75 @@ Fique ligado e não perca nenhuma partida! 🏆`;
       } else {
         // Se o CPF for inválido, pedir novamente
         addBotMessage('input-cpf', 'O CPF deve conter 11 dígitos. Por favor, digite novamente (apenas números):');
+      }
+    } else if (currentInputAction === 'submit-clip-link') {
+      // Validar o formato do link
+      if (inputValue.trim().startsWith('http')) {
+        // Tentar salvar o clipe
+        createClip(inputValue.trim())
+          .then(result => {
+            if (result.success) {
+              // Mostrar mensagem de sucesso
+              addBotMessage('clip-championship-register-success');
+            } else if (result.cooldown) {
+              // Mostrar mensagem de cooldown
+              addBotMessage('clip-championship-register-cooldown');
+            } else {
+              // Mostrar mensagem de erro genérico
+              const errorMessage = {
+                id: `error-message-${Date.now()}`,
+                text: `${result.message} Por favor, tente novamente.`,
+                sender: 'bot',
+                type: 'text',
+                timestamp: new Date(),
+                isActive: false
+              };
+              
+              setMessages(prevMessages => [...prevMessages, errorMessage as Message]);
+              
+              // Após um breve delay, voltar para o menu de clipadores
+              setTimeout(() => {
+                addBotMessage('clip-championship-info');
+              }, 2000);
+            }
+          })
+          .catch(error => {
+            console.error('Erro ao salvar clipe:', error);
+            
+            // Mostrar mensagem de erro genérico
+            const errorMessage = {
+              id: `error-message-${Date.now()}`,
+              text: 'Ocorreu um erro ao salvar seu clipe. Por favor, tente novamente mais tarde.',
+              sender: 'bot',
+              type: 'text',
+              timestamp: new Date(),
+              isActive: false
+            };
+            
+            setMessages(prevMessages => [...prevMessages, errorMessage as Message]);
+            
+            // Após um breve delay, voltar para o menu de clipadores
+            setTimeout(() => {
+              addBotMessage('clip-championship-info');
+            }, 2000);
+          });
+      } else {
+        // Link inválido
+        const errorMessage = {
+          id: `error-message-${Date.now()}`,
+          text: 'O link fornecido parece inválido. Por favor, forneça um link começando com http:// ou https://.',
+          sender: 'bot',
+          type: 'text',
+          timestamp: new Date(),
+          isActive: false
+        };
+        
+        setMessages(prevMessages => [...prevMessages, errorMessage as Message]);
+        
+        // Pedir novamente
+        setTimeout(() => {
+          addBotMessage('clip-championship-register-input');
+        }, 2000);
       }
     } else if (currentInputAction === 'submit-contact-info') {
       // Validar e processar a informação de contato
