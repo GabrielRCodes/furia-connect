@@ -3,7 +3,6 @@
 import { auth } from "@/libs/auth"
 import { prisma } from "@/libs/prisma"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 import { CacheIDManager } from "@/utils/CacheIDManager"
 import { z } from "zod"
 
@@ -192,7 +191,6 @@ export async function deleteUserAccount(formData: FormData) {
       }
     })
     
-    redirect("/api/auth/signout")
   } catch (error) {
     console.error("Erro ao deletar conta:", error)
     return { success: false, message: "Erro ao deletar conta" }
