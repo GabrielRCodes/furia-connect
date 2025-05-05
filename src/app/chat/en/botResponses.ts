@@ -188,12 +188,12 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'games-calendar',
         text: 'Games Calendar 📅',
-        nextMessageId: 'in-development'
+        nextMessageId: 'games-calendar-info'
       },
       {
         id: 'panther-shop',
         text: 'Panther Shop 🛒',
-        nextMessageId: 'in-development'
+        nextMessageId: 'panther-shop-external'
       },
       {
         id: 'esports-news',
@@ -214,6 +214,19 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
         id: 'support',
         text: 'Visit the central 🌐',
         nextMessageId: 'visit-support-center'
+      }
+    ]
+  },
+  'panther-shop-external': {
+    id: 'panther-shop-external',
+    text: 'Redirecting to FURIA shop...',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
       }
     ]
   },
@@ -252,8 +265,19 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
     id: 'external-central-link',
     text: 'Redirecting to FURIA Central...',
     sender: 'bot',
-    type: 'text',
-    isActive: false
+    type: 'options',
+    options: [
+      {
+        id: 'return-to-support',
+        text: 'Back to support center 🌐',
+        nextMessageId: 'visit-support-center'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
   },
   'return-to-new-main': {
     id: 'return-to-new-main',
@@ -267,19 +291,19 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
         nextMessageId: 'live-games-notification-channel'
       },
       {
-        id: 'clipper-championship',
+        id: 'clip-championship',
         text: 'Clip Championship 🎬',
         nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
         text: 'Games Calendar 📅',
-        nextMessageId: 'in-development'
+        nextMessageId: 'games-calendar-info'
       },
       {
         id: 'panther-shop',
         text: 'Panther Shop 🛒',
-        nextMessageId: 'in-development'
+        nextMessageId: 'panther-shop-external'
       },
       {
         id: 'esports-news',
@@ -317,17 +341,17 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
       {
         id: 'clip-championship',
         text: 'Clip Championship 🎬',
-        nextMessageId: 'in-development'
+        nextMessageId: 'clip-championship-info'
       },
       {
         id: 'games-calendar',
         text: 'Games Calendar 📅',
-        nextMessageId: 'in-development'
+        nextMessageId: 'games-calendar-info'
       },
       {
         id: 'panther-shop',
         text: 'Panther Shop 🛒',
-        nextMessageId: 'in-development'
+        nextMessageId: 'panther-shop-external'
       },
       {
         id: 'esports-news',
@@ -529,8 +553,14 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
     id: 'go-to-settings',
     text: 'Redirecting to settings page...',
     sender: 'bot',
-    type: 'text',
-    isActive: false
+    type: 'options',
+    options: [
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
   },
   // New message for Clip Championship
   'clip-championship-info': {
@@ -594,8 +624,19 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
     id: 'clip-championship-rules-external',
     text: 'Redirecting to championship rules...',
     sender: 'bot',
-    type: 'text',
-    isActive: false
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-clip-championship',
+        text: 'Back to clip championship menu 🎬',
+        nextMessageId: 'clip-championship-info'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
   },
   // New messages for clips flow
   'clip-championship-register-input': {
@@ -688,6 +729,58 @@ export const BOT_RESPONSES: Record<string, Omit<Message, 'timestamp'>> = {
         id: 'back-to-clip-championship',
         text: 'Back to clip championship menu 🎬',
         nextMessageId: 'clip-championship-info'
+      }
+    ]
+  },
+  // New messages for games calendar
+  'games-calendar-info': {
+    id: 'games-calendar-info',
+    text: 'Here are the upcoming events FURIA will participate in! \n\nCALENDAR - 05/05/2025 to 11/05/2025',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'game-kings-league-05-05',
+        text: '05/05 - 5:00 PM - [FURIA FC] Kings League vs Fluxo FC',
+        nextMessageId: 'game-redirect-twitch'
+      },
+      {
+        id: 'game-cs-pgl-10-05',
+        text: '10/05 - 5:00 AM - [CS International] PGL Astana 2025 FURIA vs The MongolZ',
+        nextMessageId: 'game-redirect-twitch'
+      },
+      {
+        id: 'game-r6-reload-10-05',
+        text: '10/05 - 12:00 PM - [R6] RE:LO:AD - FURIA vs Elevate - BO1 - Round 1 - Group Stage',
+        nextMessageId: 'game-redirect-twitch'
+      },
+      {
+        id: 'game-lol-11-05',
+        text: '11/05 - 12:00 PM - [FURIA LOL] FURIA X FLUXO/W7M - Group Stage 2nd Split',
+        nextMessageId: 'game-redirect-twitch'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
+      }
+    ]
+  },
+  'game-redirect-twitch': {
+    id: 'game-redirect-twitch',
+    text: 'Redirecting to FURIA\'s Twitch channel...',
+    sender: 'bot',
+    type: 'options',
+    options: [
+      {
+        id: 'back-to-calendar',
+        text: 'Back to games calendar 📅',
+        nextMessageId: 'games-calendar-info'
+      },
+      {
+        id: 'return-to-main',
+        text: 'Back to main menu ↩️',
+        nextMessageId: 'return-to-new-main'
       }
     ]
   }

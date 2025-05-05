@@ -222,6 +222,18 @@ O projeto implementa práticas avançadas de SEO:
   
   Implementar sistema de criptografia para armazenamento seguro de dados pessoais sensíveis como CPF, e-mail e números de telefone. Os dados seriam armazenados de forma criptografada no banco de dados e descriptografados apenas no momento do envio de notificações ou quando necessário, garantindo maior segurança e conformidade com regulamentações de proteção de dados.
 
+- **Aprimoramento das funcionalidades de interação do chat**
+
+  Com mais tempo de desenvolvimento, as seguintes funcionalidades do chat seriam implementadas e aprimoradas de forma mais completa:
+  
+  - **Calendário de Jogos**: Integração com APIs de calendários de torneios para exibição em tempo real de partidas agendadas, resultados e estatísticas dos jogos da FURIA em diferentes modalidades.
+  
+  - **Trend Topics/Esports News**: Sistema de agregação de notícias e tópicos em alta relacionados à FURIA e cenário de esports, com curadoria automática e personalização baseada nas preferências do usuário.
+  
+  - **Criadores de Conteúdo**: Hub integrado para descoberta dos criadores associados à FURIA, com suporte para exibição de streams ao vivo, últimos vídeos e interação direta com o conteúdo.
+  
+  - **FURIA Cash**: Implementação completa de um sistema de recompensas e moeda virtual dentro da plataforma, permitindo transações, acúmulo de pontos por interação e troca por produtos, benefícios e experiências exclusivas.
+
 **Observação importante:** Todas estas funcionalidades planejadas, incluindo a criptografia de dados sensíveis, seriam implementadas caso o projeto avançasse para uma fase de produção completa. Como este é um protótipo desenvolvido para demonstração de conceito, estas características não foram implementadas, priorizando-se a entrega rápida das funcionalidades principais para avaliação. Em um ambiente de produção real, a implementação dessas medidas de segurança e expansões seria considerada essencial e prioritária.
 
 ## 📝 Licença

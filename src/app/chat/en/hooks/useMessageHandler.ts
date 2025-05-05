@@ -120,6 +120,18 @@ export const useMessageHandler = () => {
       setTimeout(() => {
         addBotMessage('clip-championship-info');
       }, 2000);
+    } else if (option.nextMessageId === 'game-redirect-twitch') {
+      // Open external link to FURIA's Twitch channel
+      window.open('https://twitch.tv/furiatv', '_blank');
+      
+      // Add redirection message
+      addBotMessage(option.nextMessageId);
+    } else if (option.nextMessageId === 'panther-shop-external') {
+      // Open external link to FURIA shop
+      window.open('https://furia.gg', '_blank');
+      
+      // Add redirection message
+      addBotMessage(option.nextMessageId);
     } else if (option.nextMessageId === 'confirm-email') {
       // Verificar se o e-mail da sessão existe
       if (session?.user?.email) {
